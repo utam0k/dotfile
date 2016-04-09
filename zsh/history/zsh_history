@@ -1,0 +1,482 @@
+: 1460184951:0;ag clear
+: 1460185035:0;cd ../
+: 1460185040:0;ag history
+: 1460185093:0;la
+: 1460185106:71;vi zshrc.zsh
+: 1460185179:0;clear
+: 1460185180:0;la
+: 1460185183:0;cd history
+: 1460185186:0;touch zsh_history\
+
+: 1460185187:0;la
+: 1460185189:0;cd 
+: 1460185192:0;zsh
+: 1460185195:0;cd
+: 1460185208:0;cd .zsh.d/history
+: 1460185210:0;vi zsh_history
+: 1460185213:0;clear
+: 1460185646:0;cd co
+: 1460185648:0;cd config
+: 1460185650:0;la
+: 1460185654:0;ls -al
+: 1460185660:0;rmm .*
+: 1460185672:0;rm .zsh*
+: 1460185673:0;la
+: 1460185674:0;lala
+: 1460185678:0;lal
+: 1460185685:0;rm zshrc.zsh 
+: 1460185687:0;zsh
+: 1460185688:0;clear
+: 1460185697:0;vi conf.prompt.zsh
+: 1460185710:0;cp conf.prompt.zsh conf.prompt.org
+: 1460185716:0;vi conf.prompt.zsh
+: 1460185734:0;vim conf.prompt.zsh
+: 1460185755:0;zsh
+: 1460185768:0;vim conf.prompt.zsh
+: 1460185799:0;zsh
+: 1460185801:0;clear
+: 1460185803:0;zsh
+: 1460185809:0;vim conf.prompt.
+: 1460185822:0;vim conf.prompt.zsh
+: 1460186022:0;zsh
+: 1460186025:0;clear
+: 1460186037:0;vim conf.prompt.zsh
+: 1460186071:0;zsh
+: 1460186087:0;vim conf.prompt.zsh
+: 1460186308:0;zsh
+: 1460186320:0;vim conf.prompt.zsh
+: 1460186358:0;zsh
+: 1460186363:0;clear
+: 1460186364:0;zsh
+: 1460186375:0;clear
+: 1460186400:0;vi conf.
+: 1460186401:0;cd
+: 1460186402:0;la
+: 1460186404:0;lalasnl
+: 1460186406:0;clear
+: 1460186435:0;cd ~/dotfile/zsh/config/plugins
+: 1460186456:0;vi conf.prompt.zsh
+: 1460186466:0;cd
+: 1460186469:0;cd .zsh.d
+: 1460186526:0;la
+: 1460186531:0;cd config
+: 1460186533:0;la
+: 1460186541:0;vi conf.git.zsh
+: 1460186553:0;cd
+: 1460186554:0;zsh
+: 1460186562:0;cd ~/.zsh.d/config
+: 1460186564:0;clear
+: 1460186574:0;cd ../
+: 1460186580:0;la
+: 1460186590:0;vi zshrc.zsh
+: 1460186614:0;zsh
+: 1460186616:0;clear
+: 1460186644:0;cd config
+: 1460186645:0;la
+: 1460186674:0;vi conf.git.zsh
+: 1460186684:0;rm conf.git.zsh
+: 1460186688:0;vi conf.git.zsh
+: 1460186706:0;zsh
+: 1460186707:0;clear
+: 1460186716:0;cd ../
+: 1460186722:0;vi zshrc.zsh
+: 1460186741:0;cd config
+: 1460186743:0;la
+: 1460186745:0;lal
+: 1460186775:0;vi conf.git.zsh
+: 1460186792:0;vi conf.myfunction.zsh
+: 1460186798:0;vim conf.myfunction.zsh
+: 1460186819:0;zsh
+: 1460186821:0;cd
+: 1460186823:0;zsh
+: 1460186825:0;clear
+: 1460186829:0;la
+: 1460186851:0;cd dotfile/zsh
+: 1460186853:0;cd
+: 1460186853:0;la
+: 1460186855:0;lal
+: 1460186861:0;cd .zsh.d
+: 1460186881:0;vi zshrc.zsh
+: 1460186894:0;cd config
+: 1460186897:0;vim conf.color.zsh
+: 1460186947:0;zsh
+: 1460186959:0;ag LSCOLORS
+: 1460186968:0;vi conf.color.zsh
+: 1460186989:0;zsh
+: 1460186990:0;clear
+: 1460187036:0;la
+: 1460187038:0;clear
+: 1460187040:0;zsh
+: 1460187067:0;cd
+: 1460187070:0;cd dotfile
+: 1460187071:0;la
+: 1460187073:0;ls -al
+: 1460187075:0;cd zsh
+: 1460187078:0;la
+: 1460187081:0;cd config
+: 1460187082:0;la
+: 1460187088:0;vi conf.myfunction.zsh
+: 1460187101:0;vi conf.color.zsh
+: 1460187114:0;zsh
+: 1460187117:0;vi conf.
+: 1460187123:0;vi conf.color.zsh
+: 1460187133:0;clear
+: 1460187134:0;cd 
+: 1460187137:0;cd .zsh.d
+: 1460187138:0;clear
+: 1460187149:0;vi zshrc.zsh
+: 1460187169:0;cd config
+: 1460187170:0;la
+: 1460187177:0;vi conf.prompt.zsh
+: 1460187188:0;zsh
+: 1460187257:0;cd
+: 1460187271:0;which zsh
+: 1460187310:0;zsh
+: 1460187321:0;tail /var/log/faillog
+: 1460187325:0;sudo tail /var/log/faillog
+: 1460187354:0;clear
+: 1460187451:0;sudo vim /etc/shells
+: 1460187475:0;echo $SHELL
+: 1460187481:0;cd
+: 1460187483:0;clear
+: 1460187503:0;cd ~/.zsh.d/config
+: 1460187507:0;vi conf.key-bind.zsh
+: 1460187519:0;zsh
+: 1460187541:0;zsh_scheduled_events=conf.completion.zsh
+: 1460187548:0;cd
+: 1460187558:0;cd 
+: 1460187583:0;cd ~/.zsh.d/config
+: 1460187602:0;vi zshenv.zsh
+: 1460187620:0;vim zshenv.zsh
+: 1460187644:0;clear
+: 1460187688:0;echo $PROMPT
+: 1460187710:0;cd config
+: 1460187715:0;vim conf.prompt.zsh
+: 1460187750:0;clear
+: 1460187754:0;la
+: 1460187763:0;vi conf.prompt.zsh
+: 1460187813:0;vi conf.myfunction.zsh
+: 1460187837:0;disp-color-list-FG
+: 1460187848:0;disp-color-list-BG
+: 1460187882:0;vim conf.prompt.zsh
+: 1460187894:0;zsh
+: 1460187908:0;cd
+: 1460187912:0;cd ~/dotfile/zsh/config
+: 1460187937:0;vi conf.myfunction.zsh
+: 1460188010:0;vi conf.prompt.zsh
+: 1460188056:0;cd
+: 1460188064:0;cd .zsh.d/co
+: 1460188073:0;cd .zsh.d/config
+: 1460188073:0;la
+: 1460188079:0;vi conf.prompt.zsh
+: 1460188133:0;vi conf.myfunction.zsh
+: 1460188161:0;vi conf.prompt.zsh
+: 1460188182:0;zsh
+: 1460188192:0;vi conf.myfunction.zsh
+: 1460188222:0;vi conf.prompt.
+: 1460188226:0;vi conf.prompt.zsh
+: 1460188262:0;vi conf.myfunction.zsh
+: 1460188281:0;vi conf.prompt.
+: 1460188289:0;rm conf.prompt.org
+: 1460188295:0;vi conf.prompt.zsh
+: 1460188315:0;vim conf.prompt.zsh
+: 1460188334:0;zsh
+: 1460188349:0;vim conf.prompt.zsh
+: 1460188398:0;vim conf.myfunction.zsh
+: 1460188442:0;vim conf.prompt.zsh
+: 1460188470:0;zsh
+: 1460188477:0;vim conf.prompt.zsh
+: 1460188503:0;zsh
+: 1460188511:0;vim conf.prompt.zsh
+: 1460188610:0;disp-color-list-BG
+: 1460188628:0;vim conf.myfunction.zsh
+: 1460188655:0;vim conf.prompt.zsh
+: 1460188678:0;zsh
+: 1460188688:0;vim conf.myfunction.zsh
+: 1460188693:0;vim conf.prompt.zsh
+: 1460188706:0;zsh
+: 1460188719:0;vim conf.prompt.zsh
+: 1460188733:0;zsh
+: 1460188745:0;vim conf.prompt.zsh
+: 1460188796:0;zsh
+: 1460188801:0;vim conf.prompt.zsh
+: 1460188812:0;zsh
+: 1460188829:0;vim conf.prompt.zsh
+: 1460188891:0;zsh
+: 1460188938:0;vim conf.prompt.zsh
+: 1460188951:0;zsh
+: 1460188957:0;vim conf.prompt.zsh
+: 1460188967:0;zsh
+: 1460188998:0;clear
+: 1460189003:0;vim conf.prompt.zsh
+: 1460189044:0;zsh
+: 1460189052:0;vim conf.prompt.zsh
+: 1460189085:0;zsh
+: 1460189099:0;vim conf.prompt.zsh
+: 1460189178:0;zsh
+: 1460189186:0;vim conf.prompt.zsh
+: 1460189235:0;zsh
+: 1460189260:0;vim conf.prompt.zsh
+: 1460189418:0;zsh
+: 1460189420:0;clear
+: 1460189430:0;cd plugins
+: 1460189436:0;git clone https://github.com/olivierverdier/zsh-git-prompt.git
+: 1460189445:0;pwd
+: 1460189453:0;la
+: 1460189462:0;cd zsh-git-prompt
+: 1460189463:0;la
+: 1460189491:0;pwd
+: 1460189507:0;vim zshrc.zsh
+: 1460189521:0;cd config
+: 1460189525:0;vim plugins
+: 1460189546:0;vim conf.plugins.zsh
+: 1460189608:0;zsh
+: 1460189626:0;cd plugins
+: 1460189632:0;cd zsh-git-prompt
+: 1460189634:0;la
+: 1460189649:0;pwd
+: 1460189662:0;cd config
+: 1460189676:0;vim conf.plugins.zsh
+: 1460189710:0;cd plugins
+: 1460189711:0;la
+: 1460189733:0;cat conf.
+: 1460189735:0;cat conf.auto-fu.zsh
+: 1460189757:0;vim conf.prompt.zsh
+: 1460189769:0;vim conf.plugins.zsh
+: 1460189794:0;zsh
+: 1460189796:0;clear
+: 1460189800:0;vim conf.prompt.zsh
+: 1460189847:0;zsh
+: 1460189924:0;vim conf.prompt.zsh
+: 1460189937:0;zsh
+: 1460189948:0;c;ear
+: 1460189950:0;cd plugins
+: 1460189956:0;rm -rf zsh-git-prompt
+: 1460189957:0;:w
+: 1460189958:0;zsh
+: 1460189959:0;clear
+: 1460189962:0;cd config
+: 1460189968:0;vim conf.plugins.zsh
+: 1460189973:0;clear
+: 1460190079:0;which tmux
+: 1460190094:0;sudo pacman -S tmux
+: 1460190129:0;sudo pacman -S playonlinux
+: 1460190234:0;sudo pacman -S wine
+: 1460190285:0;sudo pacman -Ss wine
+: 1460190307:0;sudo pacman -S wine 1.9.7-1
+: 1460190332:0;cde
+: 1460190333:0;cd
+: 1460190334:0;cd dotfile
+: 1460190336:0;cd 
+: 1460190339:0;cd Downloads
+: 1460190401:0;sudo pacman -Syu playonlinux
+: 1460190504:0;sudo vim /etc/pacman.conf
+: 1460190529:0;sudo pacman -Syu playonlinux
+: 1460190546:0;sudo pacman -S wine
+: 1460190555:0;sudo vim /etc/pacman.conf
+: 1460190579:0;sudo pacman -S wine
+: 1460190650:0;sudo pacman -Syy wine
+: 1460190690:0;sudo pacman -Syu playonlinux
+: 1460190922:0;df -h
+: 1460191305:0;sudo pacman -C playonlinux
+: 1460191309:0;sudo pacman -R playonlinux
+: 1460191562:0;cd
+: 1460191565:0;cd Downloads
+: 1460191581:0;tar xfv PlayOnLinux_4.2.2.tar.gz
+: 1460191583:0;la
+: 1460191585:0;cd playonlinux
+: 1460191586:0;la
+: 1460191611:0;ls -al
+: 1460191637:0;./playonlinux
+: 1460192164:0;rm -rf playonlinux
+: 1460192173:0;rm -rf PlayOnLinux_4.2.*
+: 1460192175:0;cd
+: 1460192176:0;la
+: 1460192182:0;rm PlayOnLinux\'s\ virtual\ drives
+: 1460192200:0;cd dotfile
+: 1460192211:0;cd zsh
+: 1460192213:0;la
+: 1460192216:0;cd ../
+: 1460192237:0;cp -rf .zsh.d dotfile/zsh
+: 1460192239:0;zsh
+: 1460192240:0;clear
+: 1460192241:0;la
+: 1460192245:0;ls -al
+: 1460192264:0;cd dotfile
+: 1460192264:0;la
+: 1460192280:0;ln -sf ~/.zsh.d ~/dotfile/zsh
+: 1460192338:0;ln -sf ~/dotfile/zsh ~/.zsh.d
+: 1460192339:0;la
+: 1460192340:0;zsh
+: 1460192341:0;clear
+: 1460192342:0;la
+: 1460192344:0;cd
+: 1460192346:0;ls -al
+: 1460192355:0;rm -rf .PlayOnLinux
+: 1460192368:0;lal
+: 1460192377:0;ln -sf ~/dotfile/zsh ~/.zsh.d
+: 1460192380:0;la
+: 1460192382:0;ls -al
+: 1460192386:0;cd dotfile
+: 1460192387:0;la
+: 1460192388:0;ls -al
+: 1460192391:0;cd zsh
+: 1460192393:0;lal
+: 1460192397:0;cd
+: 1460192411:0;ln -sf ~/dotfile/zsh ~/.zsh.d
+: 1460192413:0;lal
+: 1460192443:0;cd dotfile/zsh
+: 1460192446:0;cd co
+: 1460192448:0;cd config
+: 1460192450:0;vi conf.prompt.zsh
+: 1460192461:0;cd
+: 1460192463:0;clear
+: 1460192471:0;cd .zsh.d
+: 1460192472:0;la
+: 1460192476:0;cd co
+: 1460192479:0;cd config
+: 1460192480:0;la
+: 1460192482:0;vi conf.prompt.zsh
+: 1460192485:0;zsh
+: 1460192487:0;clear
+: 1460192495:0;cd
+: 1460192504:0;cp -r .zsh.d dotfile
+: 1460192506:0;cd dotfile
+: 1460192507:0;la
+: 1460192515:0;mv -rf .zsh.d zsh
+: 1460192520:0;mv -f .zsh.d zsh
+: 1460192525:0;la
+: 1460192531:0;rm -rf .zsh.d
+: 1460192550:0;cp -r ~/.zsh.d .
+: 1460192598:0;ln -s ~/dotfile/zsh ~/.zsh.d
+: 1460192599:0;la
+: 1460192601:0;lal
+: 1460192605:0;zsh
+: 1460192606:0;clear
+: 1460192686:0;cd .zsh.d/co
+: 1460192695:0;cd .zsh.d/config
+: 1460192696:0;la
+: 1460192735:0;vi conf.aliases.zsh
+: 1460192766:0;zsh
+: 1460192767:0;clear
+: 1460192774:0;cd
+: 1460192776:0;cd dotfile
+: 1460192778:0;mkdir nvim
+: 1460192782:0;cd nvim
+: 1460192932:0;curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \\
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+: 1460192936:0;cd
+: 1460192938:0;la
+: 1460192945:0;cd .config/nvim/autoload/
+: 1460192946:0;la
+: 1460192964:0;cd
+: 1460192967:0;cd dotfile
+: 1460192968:0;la
+: 1460192972:0;cd nvim
+: 1460192999:0;cd
+: 1460193007:0;cd .config/nvim/
+: 1460193008:0;la
+: 1460193013:0;vi init.vim
+: 1460193022:0;nvim init.vim
+: 1460193186:0;vim init.vim
+: 1460193201:0;nvim .
+: 1460193209:0;cd
+: 1460193210:0;cd dotfile
+: 1460193212:0;cd nvim
+: 1460193222:0;mkdir nvim
+: 1460193232:0;la
+: 1460193233:0;rm nvim
+: 1460193237:0;rm -r nvim
+: 1460193250:0;ln -s ~/dotfile/nvim ~/.nvim
+: 1460193261:0;cd nvim
+: 1460193262:0;cdc
+: 1460193264:0;cd
+: 1460193264:0;la
+: 1460193266:0;cd -1
+: 1460193270:0;cd
+: 1460193273:0;lal
+: 1460193277:0;cd -1
+: 1460193287:0;cd ~/.config/nvim/autoload
+: 1460193298:0;vi test.vim
+: 1460193305:0;nvim 
+: 1460193310:0;nvim test.vim
+: 1460193317:0;cd
+: 1460193334:0;cd .config/nvim/
+: 1460193336:0;vi init.vim
+: 1460193576:0;cd
+: 1460193578:0;cd dotfile
+: 1460193579:0;la
+: 1460193587:0;cp zsh ~/.config
+: 1460193595:0;cp zsh ~/.config/
+: 1460193597:0;cp zsh ~/.config/zsh
+: 1460193606:0;cp ~/dotfile/zsh ~/.config/
+: 1460193617:0;cp -r ~/dotfile/zsh ~/.config/
+: 1460193668:0;ln -sf ~/.config/zsh ~/.zsh.d
+: 1460193670:0;lal
+: 1460193692:0;ln -sf ~/.config/zsh/zshrc.zsh ~/.zshrc
+: 1460193693:0;lal
+: 1460193702:0;ln -sf ~/.config/zsh/zshenv.zsh ~/.zshenv
+: 1460193707:0;rm -rf dotfile
+: 1460193711:0;rm zshrc.zsh
+: 1460193713:0;zsh
+: 1460193714:0;clear
+: 1460193717:0;lal
+: 1460193723:0;rm .nvim
+: 1460193726:0;cd .config
+: 1460193741:0;cd nvim
+: 1460193743:0;la
+: 1460193756:0;vi init.vim
+: 1460193964:0;mkdir userautoload
+: 1460193966:0;cd userautoload
+: 1460193970:0;vi test.vim
+: 1460193986:0;vi init.vim
+: 1460194023:0;cd ../
+: 1460194027:0;git init
+: 1460194028:0;la
+: 1460194036:0;ls -al
+: 1460194052:0;git add zsh
+: 1460194060:0;git commit -m "add zsh"
+: 1460194091:0;git config --global user.email "utam0k.k0ma@gmail.com"
+: 1460194100:0;cd -1
+: 1460194112:0;git config --global user.name "utam0k"
+: 1460194121:0;git commit -m "add zsh"
+: 1460194181:0;echo "# dotfile-school-version" >> README.md
+: 1460194193:0;git add README.md
+: 1460194199:0;git commit -m "add readme"
+: 1460194210:0;git remote add origin https://github.com/utam0k/dotfile-school-version.git
+: 1460194213:0;git push origin
+: 1460194221:0;git push -u origin master
+: 1460194246:0;git status
+: 1460194252:0;cd ../
+: 1460194256:0;cd zsh
+: 1460194264:0;la
+: 1460194266:0;rm .git 
+: 1460194270:0;rm -rf .git 
+: 1460194278:0;git add .
+: 1460194283:0;cd ../
+: 1460194292:0;git status
+: 1460194301:0;git add zsh
+: 1460194318:0;rm .git/index.lock
+: 1460194321:0;git add zsh
+: 1460194346:0;git commit -m "zsh: gitã§ç®¡çƒ°ƒ¦ãƒ·ãƒ¿ã¾ã¾ãƒ€ã£ãƒ¿"
+: 1460194361:0;git push origin master
+: 1460194383:0;la
+: 1460194389:0;cd zsh
+: 1460194389:0;la
+: 1460194394:0;cd ../
+: 1460194444:0;git fetch
+: 1460194457:0;ag school
+: 1460194479:0;git mv nvim/README.md .
+: 1460194481:0;lal
+: 1460194486:0;git status
+: 1460194498:0;git commit -m "readmeã®åƒ€´æƒ©€éƒ¶ƒ³éƒµãƒ¨ãƒ¿"
+: 1460194504:0;git push origin master
+: 1460194520:0;cd zsh
+: 1460194521:0;la
+: 1460194589:0;rm -rf  .git
+: 1460194591:0;git init
+: 1460194597:0;git add README.md
+: 1460194606:0;git commit -m "first commit"
+: 1460194614:0;git remote add origin https://github.com/utam0k/dotfile-school-version.git
+: 1460194619:0;git push origin master
+: 1460194630:0;git add zsh/

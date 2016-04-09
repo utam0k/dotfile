@@ -1,0 +1,10 @@
+* What's this?
+  ZSH config files
+
+* You must do
+rename .zsh.d and set $HOME  
+
+
+And at [~/.zsh.d]
+  - cp template.zshrc ~/.zshrc
+  - cp template.zshenv ~/.zshenv
