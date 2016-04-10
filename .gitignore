@@ -1,2 +1,12 @@
 *~
-zsh/history/zsh_history
+zsh/history/
+nvim/plugged/
+tmux/*.log
+
+Thunar/
+dconf/
+fcitx/
+gtk-2.0/
+user-dirs.dirs
+user-dirs.locale
+xfce4/
