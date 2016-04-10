@@ -21,27 +21,27 @@ fpath+=(~/.zsh.d/completions(N-/) ~/.zsh.d/completions/zsh-completions/src(N-/))
 #          globがマッチしなかったり存在しないパスを無視する。
 #       -: シンボリックリンク先のパスを評価。
 #       /: ディレクトリのみ残す。
-path=(
-    # System
-    /bin(N-/)
-    /sbin(N-/)
-    /usr/bin(N-/)
-    /usr/sbin(N-/)
-    /usr/games(N-/)
-    /usr/local/bin(N-/)
-    /usr/local/sbin(N-/)
-    $HOME/local/bin(N-/)
-    $HOME/local/sbin(N-/)
-
-    $HOME/.anyenv/bin(N-/)
-
-    # for ruby
-    # /var/lib/gems/*/bin(N-/)
-    #$HOME/.rbenv/bin(N-/)
-
-    /usr/local/texlive/*/bin/*/(N-/)
-
-    )
+ path=(
+     # System
+     /bin(N-/)
+     /sbin(N-/)
+     /usr/bin(N-/)
+     /usr/sbin(N-/)
+     /usr/games(N-/)
+     /usr/local/bin(N-/)
+     /usr/local/sbin(N-/)
+     $HOME/local/bin(N-/)
+     $HOME/local/sbin(N-/)
+ 
+     $HOME/.anyenv/bin(N-/)
+ 
+     # for ruby
+     # /var/lib/gems/*/bin(N-/)
+     #$HOME/.rbenv/bin(N-/)
+ 
+     /usr/local/texlive/*/bin/*/(N-/)
+ 
+     )
 
 ## for ruby
 
@@ -53,3 +53,7 @@ path=(
 # anyenv (multi env manager ,rbenv, pyenv, ..etc)
 # git clone https://github.com/riywo/anyenv ~/.anyenv
 (( ${+commands[anyenv]} )) && eval "$(anyenv init -)"
+
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
