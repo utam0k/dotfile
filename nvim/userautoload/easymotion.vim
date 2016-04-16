@@ -3,7 +3,7 @@ vmap s <Plug>(easymotion-s)
 " ホームポジションに近いキーを使う
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 " 「;」 + 何かにマッピング
-let g:EasyMotion_leader_key=";"
+let g:EasyMotion_leader_key='<Space>'
 " 1 ストローク選択を優先する
 let g:EasyMotion_grouping=1
 " カラー設定変更
