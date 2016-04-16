@@ -7,7 +7,11 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'thinca/vim-quickrun', { 'on': 'QuickRun'}
 Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/clever-f.vim'
 
-" Add plugins to &runtimepath
+"言語ごとのプラグイン
+Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
+Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
+
 call plug#end()
-Plug 'thinca/vim-quickrun'
