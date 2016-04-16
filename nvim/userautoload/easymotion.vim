@@ -1,5 +1,8 @@
-nmap s <Plug>(easymotion-s)
-vmap s <Plug>(easymotion-s)
+nmap s <plug>(easymotion-sl)
+vmap s <Plug>(easymotion-sl)
+nmap <Space>s <Plug>(easymotion-sn)
+nmap ,s <Plug>(easymotion-s2)
+
 " ホームポジションに近いキーを使う
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 " 「;」 + 何かにマッピング
