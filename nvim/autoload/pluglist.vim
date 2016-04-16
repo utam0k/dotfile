@@ -8,6 +8,8 @@ Plug 'thinca/vim-quickrun', { 'on': 'QuickRun'}
 Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/clever-f.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'easymotion/vim-easymotion'
 
 "言語ごとのプラグイン
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
