@@ -3,7 +3,7 @@ let g:quickrun_config = {
 \     'hook/time/enable': 1,
 \     'runner': 'vimproc',
 \     'runner/vimproc/updatetime': 60,
-\     'outputter/buffer/split': ':botright',
+\     'outputter/buffer/split': ':vertical',
 \   },
 \   'bundle' : {
 \     'type': 'bundle',
@@ -13,5 +13,4 @@ let g:quickrun_config = {
 \ }
 
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-nnoremap <Space>q :QuickRun<Space>
-nnoremap qr :QuickRun<CR><Paste>
+nnoremap qr :QuickRun<CR>
