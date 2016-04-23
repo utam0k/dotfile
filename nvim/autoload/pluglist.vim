@@ -5,6 +5,7 @@ Plug 'Shougo/deoplete.nvim'
 
 " 見た目
 Plug 'w0ng/vim-hybrid'
+Plug 'itchyny/lightline.vim'
 
 " なんか便利系
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -15,7 +16,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 
 " QuickRun系
-Plug 'thinca/vim-quickrun', { 'on': 'QuickRun'}
+Plug 'thinca/vim-quickrun'
 Plug 'Shougo/vimproc.vim'
 
 " 移動系
