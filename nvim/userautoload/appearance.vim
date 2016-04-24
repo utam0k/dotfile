@@ -27,3 +27,5 @@ augroup AdditionalHighlights
   autocmd ColorScheme * highlight FullWidthSpace term=NONE ctermbg=Red
   autocmd Syntax * syntax match FullWidthSpace containedin=ALL /　/
 augroup END
+
+syntax on
