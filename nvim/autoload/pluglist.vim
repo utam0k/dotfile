@@ -8,9 +8,9 @@ Plug 'w0ng/vim-hybrid'
 Plug 'itchyny/lightline.vim'
 
 " なんか便利系
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'wakatime/vim-wakatime'
 Plug 'junegunn/vim-easy-align'
+Plug 'Townk/vim-autoclose'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -26,6 +26,11 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Shougo/unite.vim'
 Plug 'tacroe/unite-mark'
 Plug 'Shougo/neoyank.vim'
+
+" コマンド呼ぶと召喚される系男子
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'rking/ag.vim', { 'on':  'Ag' }
+
 
 " 言語ごとのプラグイン
 " Haskell
