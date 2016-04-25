@@ -1,7 +1,3 @@
-" viminfo
-" http://vimwiki.net/?%27viminfo%27
-set viminfo='50,\"1000,:0,n~/.vim/viminfo
-
 " unite mark
 " https://github.com/tacroe/unite-mark
 " http://d.hatena.ne.jp/tacroe/20101119/1290115586
