@@ -1,5 +1,4 @@
 nmap s <plug>(easymotion-s)
-nmap f <plug>(easymotion-s)
 vmap s <Plug>(easymotion-s)
 nmap <Space>s <Plug>(easymotion-sn)
 nmap ,s <Plug>(easymotion-s2)
