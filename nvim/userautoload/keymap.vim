@@ -1,3 +1,5 @@
+set backspace=indent,eol,start
+
 imap <C-J> <ESC>
 nmap ; :
 
@@ -7,5 +9,13 @@ endfor
 
 noremap <Space>h  ^
 noremap <Space>l  $
+noremap <Space>/  *
+noremap <Space>m  %
 
 noremap <C-J><C-J> :noh<CR>
+
+imap <C-n> <Down>
+imap <C-p> <Up>
+imap <C-b> <BS>
+imap <C-l> <Right>
+imap <C-h> <Left>
