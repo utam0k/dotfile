@@ -21,6 +21,7 @@ Plug 'Shougo/vimproc.vim'
 
 " 移動系
 Plug 'easymotion/vim-easymotion'
+Plug 'rhysd/clever-f.vim'
 
 " Unite
 Plug 'Shougo/unite.vim'
