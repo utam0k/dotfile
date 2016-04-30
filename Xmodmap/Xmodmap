@@ -4,14 +4,11 @@ remove mod1 = Alt_L
 keycode 66 = Control_L
 add Control = Control_L
 
-!keycode 133 = Zenkaku_Hankaku Kanji Zenkaku_Hankaku Kanji
-!keycode 134 = Zenkaku_Hankaku Kanji Zenkaku_Hankaku Kanji
 keycode 64 = Zenkaku_Hankaku Kanji Zenkaku_Hankaku Kanji
 
 keycode 133 = Mode_switch
 keycode 134 = Mode_switch
 
-! ここから下を追加
 keycode 43 = h H Left Left
 keycode 44 = j J Down Down
 keycode 45 = k K Up Up
