@@ -11,6 +11,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'wakatime/vim-wakatime'
 Plug 'junegunn/vim-easy-align'
 Plug 'Townk/vim-autoclose'
+Plug 'Shougo/vimshell.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -29,8 +30,8 @@ Plug 'tacroe/unite-mark'
 Plug 'Shougo/neoyank.vim'
 
 " コマンド呼ぶと召喚される系男子
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'rking/ag.vim', { 'on':  'Ag' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'rking/ag.vim', { 'on': 'Ag' }
 
 
 " 言語ごとのプラグイン
