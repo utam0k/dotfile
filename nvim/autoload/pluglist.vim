@@ -12,6 +12,7 @@ Plug 'wakatime/vim-wakatime'
 Plug 'junegunn/vim-easy-align'
 Plug 'Townk/vim-autoclose'
 Plug 'Shougo/vimshell.vim'
+Plug 'tomtom/tcomment_vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -33,8 +34,8 @@ Plug 'Shougo/neoyank.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'rking/ag.vim', { 'on': 'Ag' }
 
-
 " 言語ごとのプラグイン
+
 " Haskell
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
 Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
