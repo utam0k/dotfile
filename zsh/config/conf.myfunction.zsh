@@ -86,10 +86,14 @@ EOF
 
 # 1つ上のディレクトリに移動する
 function cdup() {
+  if [ -n "$BUFFER" ]; then
+    zle self-insert "^"
+  else
     echo
     cd ..
     zle reset-prompt
-}; zle -N cdup
+  fi
+}
 
 
 # PATHをスペースで分割したものを掃き出す
