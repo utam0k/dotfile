@@ -10,3 +10,10 @@ gtk-2.0/
 user-dirs.dirs
 user-dirs.locale
 xfce4/
+wireshark/
+gconf/
+chromium/
+ibus/
+opera/
+mimeapps.list
+Trolltech.conf
