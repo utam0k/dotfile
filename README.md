@@ -3,5 +3,5 @@
 - nvim
 - zsh
 - tmux
-- xmodmap
+- Xmodmap
 - tmux
