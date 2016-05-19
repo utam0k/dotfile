@@ -26,7 +26,9 @@ reg-key "^[[Z" reverse-menu-complete
 
 # ^ で上のディレクトリ
 # zle -N cdup # cdup is define by conf.myfunction.zsh
-reg-key '\^' cdup
+zle -N cdup
+bindkey '\^' cdup
+bindkey '\\' cdup
 
 local afu_available=0
 local zaw_available=0

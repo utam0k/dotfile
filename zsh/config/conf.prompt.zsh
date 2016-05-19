@@ -13,15 +13,15 @@ function _git_info() {
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
     local BG_COLOR=green
     if [[ -n $(parse_git_dirty) ]]; then
-      BG_COLOR=yellow
-      FG_COLOR=white
+      BG_COLOR=blue
+      FG_COLOR=gray
     fi
 
     if [[ ! -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then BG_COLOR=cyan
         FG_COLOR=gray
     fi
-    # echo "%{%K{$BG_COLOR}%}%{%F{$FG_COLOR}%} $(_git_prompt_info) %{%F{$BG_COLOR}%K{blue}%}"
-    echo "%{%F{$FG_COLOR}%} $(_git_prompt_info) %{%K{blue}%}"
+    echo "%{%K{$BG_COLOR}%}%{%F{$FG_COLOR}%} $(_git_prompt_info) %{%F{$BG_COLOR}%K{blue}%}"
+    # echo "%{%F{$FG_COLOR}%} $(_git_prompt_info) %{%K{blue}%}"
   else
     echo "%{%K{blue}%}"
   fi
