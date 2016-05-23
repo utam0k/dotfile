@@ -1,4 +1,4 @@
-# dotfile-school-version
+# dotfile of school
 
 - nvim
 - zsh
