@@ -13,6 +13,9 @@ alias la='ls -A'
 alias ll='ls -l'
 alias lal='ls -Al'
 
+alias y='sudo yaourt'
+alias p='sudo pacman'
+
 alias userlist='cut -d: -f1 /etc/passwd'
 
 is_exist_cmd emacs && alias e=emacs
