@@ -1,6 +1,8 @@
 export DOTZDIR=~/.zsh.d
 export ZCONFDIR=$DOTZDIR/config
 export ZPLUGINSDIR=$DOTZDIR/plugins
+export LANG=ja_JP.UTF-8
+export TERM='xterm-256color'
 
 # for debug var
 local let_include=1
