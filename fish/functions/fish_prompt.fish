@@ -1,0 +1,1 @@
+/home/utam0k/.local/share/omf/themes/jacaetevha/fish_prompt.fish
