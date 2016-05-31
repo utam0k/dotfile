@@ -5,3 +5,4 @@
 - tmux
 - Xmodmap
 - tmux
+- fish(oh-my-fish)
