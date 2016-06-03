@@ -38,6 +38,8 @@ PROMPT_SU='%(!.%{%k%F{blue}%K{black}%}%{%F{yellow}%} ⚡ %{%k%F{black}%}.%{%k%F{
 
 # PROMPT='%{%f%b%k%}$PROMPT_HOST$(_git_info)$PROMPT_DIR$PROMPT_SU
 PROMPT='%{%f%b%k%}$PROMPT_HOST%{%K{blue}%}$PROMPT_DIR$PROMPT_SU
-%(?.%B%F{white}.%B%F{blue})%(?!(๑˃̵ᴗ˂̵)ﻭ < !(;^ω^%) < )%f%b'
+%(?.%B%F{white}.%B%F{red})%(?!↪ !↪ )%f%b'
+# %(↪ )' 
+# %(?.%B%F{white}.%B%F{blue})%(?!(๑˃̵ᴗ˂̵)ﻭ < !(;^ω^%) < )%f%b'
 RPROMPT='$(_git_info)'
 # RPROMPT='%{$fg[green]%}[%*]%{$reset_color%}'
