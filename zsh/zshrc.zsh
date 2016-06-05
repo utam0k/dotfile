@@ -48,8 +48,8 @@ setopt histignorealldups sharehistory
 
 # memo dir which you changed.
 # AND, you can use "cd -[TAB]" !!
-setopt auto_pushd
-setopt pushd_ignore_dups
+ setopt auto_pushd
+ setopt pushd_ignore_dups
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=100000
@@ -76,7 +76,7 @@ setopt transient_rprompt
 setopt IGNORE_EOF
 setopt brace_ccl           # ex : {a-d} -> a b c d
 
-# setopt auto_cd             # can change directory without 'cd' command
+setopt auto_cd             # can change directory without 'cd' command
 
 chpwd_functions+=(dirs)
 
