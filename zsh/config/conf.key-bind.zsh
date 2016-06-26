@@ -8,8 +8,8 @@ reg-key "^K" up-line-or-history
 
 # 補完メニューのときの候補移動のキーバインド
 reg-key "^H" backward-char       
-reg-key "^J" down-line-or-history filterselect
-reg-key "^K" up-line-or-history   filterselect
+# reg-key "^J" down-line-or-history filterselect
+# reg-key "^K" up-line-or-history   filterselect
 # reg-key "^L" forward-char        
 # reg-key "^H" backward-char        menuselect
 # reg-key "^J" down-line-or-history menuselect filterselect
@@ -33,9 +33,9 @@ bindkey '\\' cdup
 local afu_available=0
 local zaw_available=0
 
-if is_exist_file $ZPLUGINSDIR/auto-fu/auto-fu.zsh; then
-    afu_available=1
-fi
+# if is_exist_file $ZPLUGINSDIR/auto-fu/auto-fu.zsh; then
+#     afu_available=1
+# fi
 
 if is_exist_file $ZPLUGINSDIR/zaw/zaw.zsh; then
     zaw_available=1
@@ -46,19 +46,19 @@ if [ $zaw_available = 1 ]; then
     reg-key "p" up-line-or-history
 
 
-    bindkey -r "^P"
+    bindkey -r "^Z"
 
     reg-key "^@"   zaw-cdr
-    reg-key "^P^O" zaw-open-file
-    reg-key "^P^A" zaw-applications
+    reg-key "^X^O" zaw-open-file
+    reg-key "^X^A" zaw-applications
     reg-key "^R"   zaw-history
     zle -N zaw-git
-    reg-key "^P^G" zaw-git
-    reg-key "^P^B" zaw-git-branches
-    reg-key "^P^P" zaw-process
-    reg-key "^P^T" zaw-tmux
+    reg-key "^X^G" zaw-git-files
+    reg-key "^X^B" zaw-git-branches
+    reg-key "^X^P" zaw-process
+    reg-key "^X^T" zaw-tmux
     zle -N zaw-screen
-    reg-key "^P^S" zaw-screen
+    reg-key "^X^S" zaw-screen
 fi
 
 
@@ -73,13 +73,20 @@ if [ $afu_available = 1 ]; then
 
     if [ $zaw_available = 1 ]; then
         reg-key "^@"   zaw-cdr          afu
-        reg-key "^P^O" zaw-open-file    afu
-        reg-key "^P^A" zaw-applications afu
+        reg-key "^Z^O" zaw-open-file    afu
+        reg-key "^Z^A" zaw-applications afu
         reg-key "^R"   zaw-history      afu
-        reg-key "^P^G" zaw-git          afu
-        reg-key "^P^B" zaw-git-branches afu
-        reg-key "^P^P" zaw-process      afu
-        reg-key "^P^T" zaw-tmux         afu
-        reg-key "^P^S" zaw-screen       afu
+        reg-key "^Z^G" zaw-git          afu
+        reg-key "^Z^B" zaw-git-branches afu
+        reg-key "^Z^P" zaw-process      afu
+        reg-key "^Z^T" zaw-tmux         afu
+        reg-key "^Z^S" zaw-screen       afu
     fi
 fi
+
+# Completion from history
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end

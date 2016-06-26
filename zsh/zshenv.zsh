@@ -1,9 +1,9 @@
 
-##########################################
-###     zshの環境設定をここで記述する      ###
+########################################## ##     zshの環境設定をここで記述する      ###
 ##########################################
 
 export LANG=ja_JP.UTF-8
+export VISUAL="nvim" 
 
 LISTMAX=9999
 
@@ -31,16 +31,18 @@ fpath+=(~/.zsh.d/completions(N-/) ~/.zsh.d/completions/zsh-completions/src(N-/))
      /usr/local/bin(N-/)
      /usr/local/sbin(N-/)
      $HOME/local/bin(N-/)
+     $HOME/.local/bin(N-/)
      $HOME/local/sbin(N-/)
- 
+
      $HOME/.anyenv/bin(N-/)
- 
+     $HOME/.pyenv//bin(N-/)
+
      # for ruby
      # /var/lib/gems/*/bin(N-/)
      #$HOME/.rbenv/bin(N-/)
- 
+
      /usr/local/texlive/*/bin/*/(N-/)
- 
+
      )
 
 ## for ruby
@@ -54,6 +56,4 @@ fpath+=(~/.zsh.d/completions(N-/) ~/.zsh.d/completions/zsh-completions/src(N-/))
 # git clone https://github.com/riywo/anyenv ~/.anyenv
 (( ${+commands[anyenv]} )) && eval "$(anyenv init -)"
 
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"

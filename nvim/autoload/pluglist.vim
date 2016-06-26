@@ -13,6 +13,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'Townk/vim-autoclose'
 Plug 'Shougo/vimshell.vim'
 Plug 'tomtom/tcomment_vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'

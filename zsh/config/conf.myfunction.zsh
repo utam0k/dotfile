@@ -346,3 +346,7 @@ function current_branch() {
 POST_1_7_2_GIT=$(git_compare_version "1.7.2")
 #clean up the namespace slightly by removing the checker function
 unset -f git_compare_version
+
+function cd_history_by_peco() {
+    echo cd - | peco
+}

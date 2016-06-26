@@ -8,7 +8,7 @@ endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
 " tc 新しいタブを一番右に作る
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
+map <silent> [Tag]c :tablast <bar> tabnew <CR> <Space>p
 " tx タブを閉じる
 map <silent> [Tag]x :tabclose<CR>
 " tn 次のタブ

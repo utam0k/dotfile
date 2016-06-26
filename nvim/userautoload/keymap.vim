@@ -14,6 +14,8 @@ noremap <Space>m  %
 
 noremap <C-J><C-J> :noh<CR>
 
+let g:ctrlp_map = '<Space>p'
+
 imap <C-n> <Down>
 imap <C-p> <Up>
 imap <C-b> <BS>
