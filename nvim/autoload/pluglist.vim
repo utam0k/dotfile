@@ -8,7 +8,6 @@ Plug 'w0ng/vim-hybrid'
 Plug 'itchyny/lightline.vim'
 
 " なんか便利系
-Plug 'wakatime/vim-wakatime'
 Plug 'junegunn/vim-easy-align'
 Plug 'Townk/vim-autoclose'
 Plug 'Shougo/vimshell.vim'
