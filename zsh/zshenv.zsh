@@ -16,6 +16,12 @@ LISTMAX=9999
 fpath+=(~/.zsh.d/completions(N-/) ~/.zsh.d/completions/zsh-completions/src(N-/))
 # fpath=(~/.zsh.d/completions/zsh-completions/src $fpath)
 
+# pyenv root
+export PYENV_ROOT="$HOME/.pyenv"
+
+# go root
+export GOROOT=/usr/local/opt/go/libexec
+
 ## 存在しないパスを登録しない
 #       N: NULL_GLOBオプションを設定。
 #          globがマッチしなかったり存在しないパスを無視する。
@@ -42,6 +48,10 @@ fpath+=(~/.zsh.d/completions(N-/) ~/.zsh.d/completions/zsh-completions/src(N-/))
      #$HOME/.rbenv/bin(N-/)
 
      /usr/local/texlive/*/bin/*/(N-/)
+     $PYENV_ROOT/bin(N-/)
+
+     $GOROOT/bin
+     $HOME/bin
 
      )
 
