@@ -1,5 +1,4 @@
 # dotfile 
-# OS: Arch Linu
 
 - nvim
 - zsh
