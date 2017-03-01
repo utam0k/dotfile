@@ -19,7 +19,7 @@ Plug 'tpope/vim-fugitive'
 
 " QuickRun系
 Plug 'thinca/vim-quickrun'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " 移動系
 Plug 'easymotion/vim-easymotion'
