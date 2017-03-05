@@ -40,5 +40,7 @@ Plug 'rking/ag.vim', { 'on': 'Ag' }
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
 Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
+" Go
+Plug 'fatih/vim-go', { 'for': 'go'}
 
 call plug#end()
