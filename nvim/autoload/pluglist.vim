@@ -19,7 +19,7 @@ Plug 'tpope/vim-fugitive'
 
 " QuickRun系
 Plug 'thinca/vim-quickrun'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " 移動系
 Plug 'easymotion/vim-easymotion'
@@ -40,6 +40,8 @@ Plug 'rking/ag.vim', { 'on': 'Ag' }
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
 Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
+" Go
+Plug 'fatih/vim-go', { 'for': 'go'}
 
 " Go
 Plug 'fatih/vim-go', { 'for': 'go'}

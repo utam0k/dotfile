@@ -1,5 +1,4 @@
-# dotfile of school
-# OS: Arch Linu
+# dotfile 
 
 - nvim
 - zsh
