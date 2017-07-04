@@ -19,3 +19,4 @@ mimeapps.list
 Trolltech.conf
 fish/fish_history
 nvim/.init.vim-rplugin~
+nvim/undo/
