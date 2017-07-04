@@ -45,6 +45,7 @@ Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
 Plug 'fatih/vim-go', { 'for': 'go'}
 
 " Python
-Plug 'davidhalter/jedi-vim', { 'for': 'python'}
+Plug 'zchee/deoplete-jedi', { 'for': 'python'}
+" Plug 'davidhalter/jedi-vim', { 'for': 'python'}
 
 call plug#end()
