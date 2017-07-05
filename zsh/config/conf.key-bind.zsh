@@ -22,6 +22,8 @@ reg-key "^[[Z" reverse-menu-complete
 # # M-p,M-nでヒストリの前後を表示する(マッチしなくても通常のヒストリを表示?)
 # reg-key "^[P" history-beginning-search-backward-end
 # reg-key "^[N" history-beginning-search-forward-end
+reg-key "^P" history-beginning-search-backward-end
+reg-key "^N" history-beginning-search-forward-end
 
 
 # ^ で上のディレクトリ

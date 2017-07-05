@@ -41,7 +41,7 @@ zstyle ':completion:*' completer _complete _list _prefix _expand _oldlist #_hist
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+# eval "$(dircolors -b)"
 # 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 # 補完時に大文字小文字を区別しないとか...
