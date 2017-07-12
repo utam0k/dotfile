@@ -1,8 +1,7 @@
 filetype off
 
-" ここで設定
-let g:python3_host_prog = expand('$HOME') . '/.pyenv/shims/python3'
-" let g:python_host_prog = expand('$HOME') . '/bin/python2'
+let g:python_host_prog = 'path to python'
+let g:python3_host_prog = 'path to python'
 
 if empty(glob('$HOME/.config/autoload/plug.vim'))
   silent !curl -fLo $HOME/.config/autoload/plug.vim --create-dirs
