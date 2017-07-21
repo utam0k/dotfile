@@ -26,7 +26,7 @@ function! LightLineModified()
 endfunction
 
 function! LightLineReadonly()
-  return &ft !~? 'help\|nerdtree\|undotree\|diff' && &readonly ? '' : ''
+  return &ft !~? 'help\|nerdtree\|undotree\|diff' && &readonly ? '!' : ''
 endfunction
 
 function! LightLineFilename()
@@ -44,7 +44,7 @@ endfunction
 function! LightLineFugitive()
   if &ft !~? 'help\|nerdtree\|undotree\|quickrun\|qf' && @% != '[YankRing]' && exists("*fugitive#head")
     let _ = fugitive#head()
-    return strlen(_) ? '  '._ : ''
+    return strlen(_) ? ' ○ '._ : ''
   endif
   return ''
 endfunction

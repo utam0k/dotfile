@@ -37,7 +37,7 @@ Plug 'rking/ag.vim', { 'on': 'Ag' }
 " 言語ごとのプラグイン
 
 " C++
-Plug 'zchee/deoplete-clang', { 'for': 'cpp'}
+" Plug 'zchee/deoplete-clang', { 'for': 'cpp'}
 
 " Haskell
 Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
