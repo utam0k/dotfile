@@ -21,3 +21,5 @@ imap <C-p> <Up>
 imap <C-b> <BS>
 imap <C-l> <Right>
 imap <C-h> <Left>
+
+noremap tt :tabnew<CR>:terminal<CR>
