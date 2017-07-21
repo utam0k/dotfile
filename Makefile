@@ -1,43 +1,46 @@
 DOTFILES := $(shell pwd)
 SHELL_RC = ${HOME}/.bashrc
-PYTHON_VERSION = 3.5.1
 
-all: tmux nvim git pyenv python
-.PHONY: tmux nvim git pyenv python
+all: bashrc pyenv python tmux nvim git
+.PHONY: bashrc pyenv python tmux nvim git
+
 tmux:
-	CONF = $(DOTFILES)/tmux/tmux.conf
-	@if [ -f CONF ]; then\
-		@echo "$(error %{CONF} is already exit.)";
+	@if [ -e $(HOME)/.tmux.conf ]; then\
+		mv $(HOME)/.tmux.conf $(HOME)/.tmux.conf.org; \
 	fi
-	ln -s $(DOTFILES)/tmux/tmux.conf ${HOME}/.tmux.conf
-nvim:
-	CONF = $(DOTFILES)/nvim/init.vim
-	@if [ -f CONF ]; then\
-		@echo "$(error %{CONF} is already exit.)";
-	fi
-	cp nvim/init.vim.org nvim/init.vim
-	ln -s $(DOTFILES)/nvim/ ${HOME}/.config/nvim/
+	ln -s $(DOTFILES)/tmux/tmux.conf $(HOME)/.tmux.conf
+
+PYENV_ROOT = $(HOME)/.pyenv
 pyenv:
-	@if [ -f ${HOME}/.pyenv ]; then\
-		@echo "$(error ${HOME}/.pyenv is already exit.)";
-	fi
-	export PYENV_ROOT="${HOME}/.pyenv" 
-	@if [ -f ${PYENV_ROOT}/plugins/pyenv-virtualenv ]; then\
-		@echo "$(error ${PYENV_ROOT}/plugins/pyenv-virtualenv is already exit.)";
-	fi
 	git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
-	echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> ${SHELL_RC}
-	echo 'export PATH="${PYENV_ROOT}/bin:${PATH}"' >> ${SHELL_RC}
-	echo 'eval "$(pyenv init -)"' >>${SHELL_RC}
 	git clone https://github.com/pyenv/pyenv-virtualenv.git $(PYENV_ROOT)/plugins/pyenv-virtualenv
-	echo 'eval "$(pyenv virtualenv-init -)"' >> ${SHELL_RC}
-python:
-	pyenv install ${PYTHON_VERSION}
-	pyenv virtualenv ${PYTHON_VERSION} neovim
-	pip install neovim
-	pyenv activate neovim
-	pip install neovim
-	sed -i "s@path to python@`pyenv which python`@g" nvim/init.vim 
-	pyenv deactivate neovim
+
+PYTHON_VERSION = 3.5.1
+PYENV = $(PYENV_ROOT)/bin/pyenv
+PYENV_NVIM_BIN = $(PYENV_ROOT)/versions/nvim/bin
+nvim:
+	@if [ -e $(HOME)/.config/nvim ]; then\
+		echo "WARNIGN: $(HOME)/.config/nvim is already exist."; \
+	else \
+		ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
+		cp nvim/init.vim.org nvim/init.vim; \
+	fi
+	@if [ ! -e $(PYENV_ROOT)/versions/$(PYTHON_VERSION) ]; then\
+		$(PYENV_ROOT)/bin/pyenv install $(PYTHON_VERSION); \
+	fi
+	@if [ ! -e $(PYENV_ROOT)/versions/nvim ]; then\
+		$(PYENV) virtualenv $(PYTHON_VERSION) nvim; \
+	fi
+	$(PYENV_NVIM_BIN)/pip install --upgrade pip
+	$(PYENV_NVIM_BIN)/pip install neovim
+	sed -i "s@path to python@$(PYENV_NVIM_BIN)/python@g" nvim/init.vim 
+
+bashrc:
+	@if [ -e $(HOME)/.bashrc ]; \
+		then mv $(HOME)/.bashrc $(HOME)/.bashrc.org;\
+	fi
+	ln -sf $(DOTFILES)/bash/bashrc $(HOME)/.bashrc
+
 git:
 	ln -fs $(DOTFILES)/git/gitignore ${HOME}/.gitignore
+	ln -fs $(DOTFILES)/git/.gitconfig ${HOME}/.gitconfig
