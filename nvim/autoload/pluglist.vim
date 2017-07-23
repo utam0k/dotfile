@@ -37,19 +37,33 @@ Plug 'rking/ag.vim', { 'on': 'Ag' }
 " 言語ごとのプラグイン
 
 " C++
-" Plug 'zchee/deoplete-clang', { 'for': 'cpp'}
+if cpp_setting == 1
+    Plug 'zchee/deoplete-clang', { 'for': 'cpp'}
+endif
 
 " Haskell
-Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
-Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
-Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
+if hs_setting == 1
+    Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
+    Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
+    Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
+endif
 
 " Go
-Plug 'fatih/vim-go', { 'for': 'go'}
-Plug 'zchee/deoplete-go', { 'for': 'go'}
+if go_setting == 1
+    Plug 'fatih/vim-go', { 'for': 'go'}
+    Plug 'zchee/deoplete-go', { 'for': 'go'}
+endif
 
 " Python
-" Plug 'zchee/deoplete-jedi', { 'for': 'python'}
-Plug 'davidhalter/jedi-vim', { 'for': 'python'}
+if py_setting == 1
+    " Plug 'zchee/deoplete-jedi', { 'for': 'python'}
+    Plug 'davidhalter/jedi-vim', { 'for': 'python'}
+endif
+
+" Rust
+if rust_setting == 1
+    Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
+    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+endif
 
 call plug#end()
