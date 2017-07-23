@@ -36,8 +36,11 @@ nvim:
 	sed -i "s@path to python@$(PYENV_NVIM_BIN)/python@g" nvim/init.vim 
 
 bashrc:
-	@if [ -e $(HOME)/.bashrc ]; \
-		then mv $(HOME)/.bashrc $(HOME)/.bashrc.org;\
+	@if [ -e $(HOME)/.bashrc ]; then\
+		mv $(HOME)/.bashrc $(HOME)/.bashrc.org;\
+	fi
+	@if [ ! -e $(DOTFILES)/bash/conf.bash ]; then\
+		cp $(DOTFILES)/bash/conf.bash.example $(DOTFILES)/bash/conf.bash;\
 	fi
 	ln -sf $(DOTFILES)/bash/bashrc $(HOME)/.bashrc
 
