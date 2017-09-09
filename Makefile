@@ -47,3 +47,13 @@ bashrc:
 git:
 	ln -fs $(DOTFILES)/git/gitignore ${HOME}/.gitignore
 	ln -fs $(DOTFILES)/git/.gitconfig ${HOME}/.gitconfig
+
+zshrc:
+	@if [ -e $(HOME)/.zshrc ]; then\
+		mv $(HOME)/.zshrc $(HOME)/.zshrc.org;\
+	fi
+	@if [ -e $(HOME)/.zshenv ]; then\
+		mv $(HOME)/.zshenv $(HOME)/.zshenv.org;\
+	fi
+	ln -sf $(DOTFILES)/zsh/zshrc.zsh $(HOME)/.zshrc
+	ln -sf $(DOTFILES)/zsh/zshenv.zsh $(HOME)/.zshenv

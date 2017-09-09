@@ -143,6 +143,4 @@ if [ -r ~/.zshrc.local ]; then
   . ~/.zshrc.local
 fi
 
-# vim: fdm=marker
 alias vi='nvim'
-eval "$(rbenv init -)"
