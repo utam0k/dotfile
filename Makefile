@@ -23,7 +23,10 @@ nvim:
 		echo "WARNIGN: $(HOME)/.config/nvim is already exist."; \
 	else \
 		ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
-		cp nvim/init.vim.org nvim/init.vim; \
+		cp $(DOTFILES)/nvim/init.vim.org $(DOTFILES)/nvim/init.vim; \
+	fi
+	@if [ ! -e $(DOTFILES)/nvim/config.vim ]; then\
+		cp $(DOTFILES)/nvim/config.vim.example $(DOTFILES)/nvim/config.vim;\
 	fi
 	@if [ ! -e $(PYENV_ROOT)/versions/$(PYTHON_VERSION) ]; then\
 		$(PYENV_ROOT)/bin/pyenv install $(PYTHON_VERSION); \
