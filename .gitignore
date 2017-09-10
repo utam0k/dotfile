@@ -22,3 +22,4 @@ nvim/.init.vim-rplugin~
 nvim/init.vim
 nvim/undo/
 bash/conf.bash
+nvim/config.vim

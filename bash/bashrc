@@ -5,7 +5,7 @@ function load_conf_file() {
 }
 
 function if_load_conf_file() {
-    if [ $1 ]; then
+    if [ $1 == 1 ]; then
         load_conf_file $2
     fi
 }
@@ -76,3 +76,5 @@ load_conf_file $DOTFILE/bash/bind.bash
 load_conf_file $DOTFILE/bash/functions.bash
 
 if_load_conf_file $pyenv $DOTFILE/bash/pyenv.bash
+if_load_conf_file $cargo $DOTFILE/bash/cargo.bash
+export EDITOR=nvim
