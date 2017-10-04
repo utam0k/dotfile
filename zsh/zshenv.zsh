@@ -15,3 +15,4 @@ if [ -r ~/.zshenv.local ]; then
 	. ~/.zshenv.local
 fi
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export EDITOR='nvim'

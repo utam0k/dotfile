@@ -16,6 +16,7 @@ Plug 'tomtom/tcomment_vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/committia.vim'
 
 " QuickRun系
 Plug 'thinca/vim-quickrun'
