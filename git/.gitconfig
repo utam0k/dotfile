@@ -3,6 +3,7 @@
 	name = utam0k
 [core]
 	excludesfile = ~/.gitignore.global*
+	editor = nvim
 [alias]
 	amend = commit --amend -v
 	c = commit -v

@@ -20,3 +20,4 @@ set updatetime=1000
 
 set undodir=$HOME/.config/nvim/undo
 set undofile
+nnoremap O :<C-u>call append(expand('.'), '')<Cr>j
