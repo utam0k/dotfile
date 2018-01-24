@@ -15,7 +15,7 @@ pyenv:
 	git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
 	git clone https://github.com/pyenv/pyenv-virtualenv.git $(PYENV_ROOT)/plugins/pyenv-virtualenv
 
-PYTHON_VERSION = 3.5.1
+PYTHON_VERSION = 3.6.0
 PYENV = $(PYENV_ROOT)/bin/pyenv
 PYENV_NVIM_BIN = $(PYENV_ROOT)/versions/nvim/bin
 nvim:
