@@ -144,7 +144,4 @@ if [ -r ~/.zshrc.local ]; then
 fi
 
 alias vi='nvim'
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH=$HOME/.nodebrew/current/bin:$PATH
 export EDITOR='nvim'
