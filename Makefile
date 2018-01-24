@@ -20,7 +20,7 @@ PYENV = $(PYENV_ROOT)/bin/pyenv
 PYENV_NVIM_BIN = $(PYENV_ROOT)/versions/nvim/bin
 nvim:
 	@if [ ! -e $(HOME)/.config/nvim ]; then\
-		mkdir $(HOME)/.config
+		mkdir $(HOME)/.config; \
 	fi
 	@if [ -e $(HOME)/.config/nvim ]; then\
 		echo "WARNIGN: $(HOME)/.config/nvim is already exist."; \
