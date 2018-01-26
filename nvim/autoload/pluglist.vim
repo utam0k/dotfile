@@ -73,4 +73,9 @@ if exists('g:js_setting') && js_setting == 1
     Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 endif
 
+" Scala
+if exists('g:scala_setting') && scala_setting == 1
+    Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+endif
+
 call plug#end()
