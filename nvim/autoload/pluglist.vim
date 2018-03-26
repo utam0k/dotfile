@@ -16,6 +16,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
+Plug 'neomake/neomake'
 
 " Git
 Plug 'tpope/vim-fugitive'
