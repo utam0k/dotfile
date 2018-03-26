@@ -13,6 +13,9 @@ Plug 'Shougo/vimshell.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'tomtom/tcomment_vim'
+Plug 'majutsushi/tagbar'
+Plug 'haya14busa/incsearch.vim'
+Plug 'lighttiger2505/gtags.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -71,6 +74,11 @@ endif
 if exists('g:js_setting') && js_setting == 1
     Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
     Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+endif
+
+" Scala
+if exists('g:scala_setting') && scala_setting == 1
+    Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 endif
 
 call plug#end()
