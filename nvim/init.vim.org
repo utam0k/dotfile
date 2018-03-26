@@ -9,6 +9,7 @@ if empty(glob('$HOME/.config/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+runtime! config.vim
 runtime! autoload/plug.vim
 runtime! autoload/pluglist.vim
 runtime! userautoload/*.vim
