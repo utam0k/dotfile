@@ -10,7 +10,6 @@
 	co = checkout
 	b = checkout -b
 	f = fetch --prune
-	pl = pull
-	ps = push
 	ready = rebase -i @{u}
-	s = status -s -b
+	s = status
+    plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
