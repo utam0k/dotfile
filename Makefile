@@ -18,7 +18,7 @@ PYTHON_VERSION = 3.6.0
 PYENV = $(PYENV_ROOT)/bin/pyenv
 PYENV_NVIM_BIN = $(PYENV_ROOT)/versions/nvim/bin
 nvim:
-	@if [ ! -e $(HOME)/.config/nvim ]; then\
+	@if [ ! -e $(HOME)/.config ]; then\
 		mkdir $(HOME)/.config; \
 	fi
 	@if [ -e $(HOME)/.config/nvim ]; then\
@@ -62,3 +62,4 @@ zshrc:
 	fi
 	ln -sf $(DOTFILES)/zsh/zshrc.zsh $(HOME)/.zshrc
 	ln -sf $(DOTFILES)/zsh/zshenv.zsh $(HOME)/.zshenv
+	chsh -s /bin/zsh

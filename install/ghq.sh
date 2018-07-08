@@ -1,7 +1,8 @@
 #!/bin/sh
 
-export GOPATH=$HOME
-export GOROOT=$HOME/go
-export PATH=$GOPATH/bin:$PATH
+export PATH=$PATH:$HOME/.go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
 go get github.com/motemen/ghq
 go get github.com/peco/peco/cmd/peco
