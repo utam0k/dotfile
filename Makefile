@@ -1,8 +1,11 @@
 DOTFILES := $(shell pwd)
 SHELL_RC = ${HOME}/.bashrc
 
-all: bashrc pyenv python tmux nvim git
-.PHONY: bashrc pyenv python tmux nvim git
+all: setup zshrc pyenv python tmux nvim git
+.PHONY: setup zshrc pyenv python tmux nvim git
+
+setup:
+	$(DOTFILES)/setup.sh
 
 tmux:
 	@if [ -e $(HOME)/.tmux.conf ]; then\
@@ -11,10 +14,6 @@ tmux:
 	ln -s $(DOTFILES)/tmux/tmux.conf $(HOME)/.tmux.conf
 
 PYENV_ROOT = $(HOME)/.pyenv
-pyenv:
-	git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
-	git clone https://github.com/pyenv/pyenv-virtualenv.git $(PYENV_ROOT)/plugins/pyenv-virtualenv
-
 PYTHON_VERSION = 3.6.0
 PYENV = $(PYENV_ROOT)/bin/pyenv
 PYENV_NVIM_BIN = $(PYENV_ROOT)/versions/nvim/bin
