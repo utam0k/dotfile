@@ -1,2 +1,2 @@
 " gcがfugitiveとかぶる
-let g:tcommentMapLeaderOp1='co' 
+" let g:tcomment_opleader1='co' 
