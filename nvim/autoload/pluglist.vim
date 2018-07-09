@@ -17,6 +17,7 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'w0rp/ale'
+Plug 'mattn/ctrlp-ghq'
 
 " Git
 Plug 'tpope/vim-fugitive'
