@@ -47,7 +47,7 @@ precmd () {
 	DEFAULT=$'%F{green}$%f'
 	ERROR=$'%F{red}$%f'
 	PROMPT=$'%(?.${DEFAULT}.${ERROR}) '
-	RPROMPT="%1(v|%F{red}%1v%f|) %F{cyan}%d%f %F{magenta}%n%f"
+	RPROMPT="%1(v|%F{red}%1v%f|) %F{cyan}%~%f %F{magenta}%n%f"
 }
 # }}}
 
@@ -158,6 +158,7 @@ export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
 
-export GOROOT=/usr/local/go
+# export GOROOT=/usr/local/go
+export GOROOT="$HOME/.go"
 export GOPATH="$HOME/go"
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
