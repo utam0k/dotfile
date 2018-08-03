@@ -35,3 +35,6 @@ alias -g L=' | less '
 alias -s py=python
 alias -s rb=ruby
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,7z,tar,arj,lzma,xz}=extract
+
+alias g='cd $(ghq root)/$(ghq list | peco)'
+alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
