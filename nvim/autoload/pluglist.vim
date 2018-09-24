@@ -9,7 +9,6 @@ Plug 'itchyny/lightline.vim'
 
 " なんか便利系
 " Plug 'junegunn/vim-easy-align'
-Plug 'Shougo/vimshell.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'tomtom/tcomment_vim'
@@ -22,6 +21,7 @@ Plug 'mattn/ctrlp-ghq'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
+Plug 'airblade/vim-gitgutter'
 
 " QuickRun系
 Plug 'thinca/vim-quickrun'
