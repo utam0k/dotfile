@@ -37,7 +37,7 @@ nvim:
 		$(PYENV) virtualenv $(PYTHON_VERSION) nvim; \
 	fi
 	$(PYENV_NVIM_BIN)/pip install --upgrade pip
-	$(PYENV_NVIM_BIN)/pip install neovim
+	$(PYENV_NVIM_BIN)/pip install pynvim
 	sed -i "s@path to python@$(PYENV_NVIM_BIN)/python@g" nvim/init.vim 
 
 bashrc:
