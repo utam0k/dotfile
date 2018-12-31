@@ -62,8 +62,8 @@ endif
 
 " Python
 if exists('g:py_setting') && py_setting == 1
-    " Plug 'zchee/deoplete-jedi', { 'for': 'python'}
     Plug 'davidhalter/jedi-vim', { 'for': 'python'}
+    " Plug 'zchee/deoplete-jedi', { 'for': 'python'}
 endif
 
 " Rust

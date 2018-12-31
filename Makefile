@@ -38,6 +38,7 @@ nvim:
 	fi
 	$(PYENV_NVIM_BIN)/pip install --upgrade pip
 	$(PYENV_NVIM_BIN)/pip install pynvim
+	$(PYENV_NVIM_BIN)/pip install jedi flake8-import-order autopep8 black isort
 	sed -i "s@path to python@$(PYENV_NVIM_BIN)/python@g" nvim/init.vim 
 
 bashrc:
