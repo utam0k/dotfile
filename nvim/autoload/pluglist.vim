@@ -1,21 +1,20 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " 必須系
-Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/deoplete.nvim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " 見た目
 Plug 'w0ng/vim-hybrid'
 Plug 'itchyny/lightline.vim'
 
 " なんか便利系
-" Plug 'junegunn/vim-easy-align'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
-Plug 'w0rp/ale'
 Plug 'mattn/ctrlp-ghq'
 
 " Git
@@ -41,11 +40,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'rking/ag.vim', { 'on': 'Ag' }
 
 " 言語ごとのプラグイン
-
-" C++
-if exists('g:cpp_setting') && cpp_setting == 1
-    Plug 'zchee/deoplete-clang', { 'for': 'cpp'}
-endif
 
 " Haskell
 if exists('g:g:hs_setting') && hs_setting == 1
