@@ -66,5 +66,4 @@ zshrc:
 	fi
 	ln -sf $(DOTFILES)/zsh/zshrc.zsh $(HOME)/.zshrc
 	ln -sf $(DOTFILES)/zsh/zshenv.zsh $(HOME)/.zshenv
-	ln -sf $(DOTFILES)/zsh/zshrc.local $(HOME)/.zshrc.local
 	chsh -s /bin/zsh
