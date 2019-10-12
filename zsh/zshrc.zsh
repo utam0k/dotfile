@@ -43,21 +43,9 @@ fi
 
 for f in $(find "$HOME/.zsh/userautoload" -type f -name "*.zsh"); do source "$f"; done
 
-if [ -r ~/.zshrc.local ]; then
-  . ~/.zshrc.local
-fi
-
 alias vi='nvim'
 export EDITOR='nvim'
 
-export PATH="${HOME}/.cargo/bin:${PATH}"
-source ~/.cargo/env
-
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
-eval "$(pyenv init -)"
-
-# export GOROOT=/usr/local/go
-export GOROOT="$HOME/.go"
-export GOPATH="$HOME/go"
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+if [ -r ~/.zshrc.local ]; then
+  . ~/.zshrc.local
+fi
