@@ -1,12 +1,9 @@
-[submodule "zsh-completions"]
+[submodule "zsh/completions/zsh-completions"]
       path = zsh/completions/zsh-completions
       url = git://github.com/zsh-users/zsh-completions.git
-[submodule "zsh-autosuggestions"]
+[submodule "zsh/plugins/zsh-autosuggestions"]
       path = zsh/plugins/zsh-autosuggestions
       url = git://github.com/zsh-users/zsh-autosuggestions
-[submodule "zsh-syntax-highlighting"]
-      path = zsh/plugins/zsh-syntax-highlighting
-      url = git://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/plugins/zsh-syntax-highlighting
 	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
