@@ -1,0 +1,5 @@
+# Generate zshrc
+
+```
+./build.sh
+```
