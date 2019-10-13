@@ -27,3 +27,4 @@ nvim/.netrwhist
 nvim/.cache
 
 zsh/build/
+zsh/zshrc.local
