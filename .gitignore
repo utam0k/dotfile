@@ -24,3 +24,6 @@ nvim/undo/
 bash/conf.bash
 nvim/config.vim
 nvim/.netrwhist
+nvim/.cache
+
+zsh/build/

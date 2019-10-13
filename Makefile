@@ -55,16 +55,6 @@ git:
 	ln -fs $(DOTFILES)/git/.gitconfig ${HOME}/.gitconfig
 
 zshrc:
-	@if [ -e $(HOME)/.zshrc ]; then\
-		mv $(HOME)/.zshrc $(HOME)/.zshrc.org;\
-	fi
-	@if [ -e $(HOME)/.zshenv ]; then\
-		mv $(HOME)/.zshenv $(HOME)/.zshenv.org;\
-	fi
-	@if [ -e $(HOME)/.zshenv ]; then\
-		mv $(HOME)/.zshrc.local $(HOME)/.zshrc.local.org;\
-	fi
-	ln -sf $(DOTFILES)/zsh/zshrc.zsh $(HOME)/.zshrc
-	ln -sf $(DOTFILES)/zsh/zshenv.zsh $(HOME)/.zshenv
-	ln -sf $(DOTFILES)/zsh $(HOME)/.zsh
-	chsh -s /bin/zsh
+	cd zsh && ./build.sh
+	ln -sf $(DOTFILES)/zsh/build/zshrc $(HOME)/.zshrc
+	ln -sf $(DOTFILES)/zsh/build/zshrc.zwc $(HOME)/.zshrc.zwc
