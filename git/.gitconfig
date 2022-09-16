@@ -1,8 +1,9 @@
 [user]
 	email = k0ma@utam0k.jp
 	name = utam0k
+	signingkey = 14ACDDE088DF059E
 [core]
-	excludesfile = ~/.gitignore.global*
+	excludesFile = /home/utam0k/.gitignore_global
 	editor = nvim
 [alias]
 	amend = commit --amend -v
@@ -15,3 +16,7 @@
     plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
 [ghq]
     root = ~/ghq
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true

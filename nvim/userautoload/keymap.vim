@@ -14,11 +14,10 @@ noremap <Space>m  %
 
 noremap <C-J><C-J> :noh<CR>
 
-let g:ctrlp_map = '<Space>p'
+let g:ctrlp_map = '<C-p>'
 
-imap <C-n> <Down>
-imap <C-p> <Up>
-imap <C-b> <BS>
+" imap <C-n> <Down>
+" imap <C-b> <BS>
 imap <C-l> <Right>
 imap <C-h> <Left>
 

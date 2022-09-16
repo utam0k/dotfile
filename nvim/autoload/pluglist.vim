@@ -16,6 +16,8 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'mattn/ctrlp-ghq'
+Plug 'dyng/ctrlsf.vim'
+Plug 'MattesGroeger/vim-bookmarks'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -37,6 +39,7 @@ Plug 'Shougo/neoyank.vim'
 
 " コマンド呼ぶと召喚される系男子
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'rking/ag.vim', { 'on': 'Ag' }
 
 " 言語ごとのプラグイン
@@ -50,8 +53,8 @@ endif
 
 " Go
 if exists('g:go_setting') && go_setting == 1
-    Plug 'fatih/vim-go', { 'for': 'go'}
-    Plug 'zchee/deoplete-go', { 'for': 'go'}
+    " Plug 'fatih/vim-go', { 'for': 'go'}
+    " Plug 'zchee/deoplete-go', { 'for': 'go'}
 endif
 
 " Python
@@ -62,8 +65,8 @@ endif
 
 " Rust
 if exists('g:rust_setting') && rust_setting == 1
-    Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    " Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
+    " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 endif
 
 " js
