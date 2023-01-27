@@ -54,3 +54,6 @@ vendor/bundler
 # vim: fdm=marker[core]
 #   editor = /usr/bin/vim
 #       excludesfile = ~/.gitignore.global*
+
+.vim-bookmarks
+kubeconfig

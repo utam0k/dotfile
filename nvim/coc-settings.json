@@ -4,5 +4,9 @@
       "command": "clangd",
       "filetypes": ["c", "cpp", "objc", "objcpp"]
     }
-  }
+  },
+  "coc.preferences.formatOnSaveFiletypes": [
+     "go",
+     "rust"
+  ]
 }
