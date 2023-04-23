@@ -1,7 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " 必須系
-" Plug 'Shougo/deoplete.nvim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " 見た目
@@ -9,15 +8,18 @@ Plug 'w0ng/vim-hybrid'
 Plug 'itchyny/lightline.vim'
 
 " なんか便利系
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
-Plug 'mattn/ctrlp-ghq'
 Plug 'dyng/ctrlsf.vim'
 Plug 'MattesGroeger/vim-bookmarks'
+
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'kkharji/sqlite.lua'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -37,10 +39,12 @@ Plug 'Shougo/unite.vim'
 Plug 'tacroe/unite-mark'
 Plug 'Shougo/neoyank.vim'
 
-" コマンド呼ぶと召喚される系男子
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'rking/ag.vim', { 'on': 'Ag' }
+" コマンド呼ぶと召喚される系
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons'
+
+" copilot
+Plug 'github/copilot.vim'
 
 " 言語ごとのプラグイン
 

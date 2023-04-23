@@ -1,6 +1,6 @@
 set t_Co=256
 
-set mouse-=a
+set mouse=
 
 set cursorline
 augroup CursorLineOnlyCurrentWindow

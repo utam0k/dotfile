@@ -8,5 +8,19 @@
   "coc.preferences.formatOnSaveFiletypes": [
      "go",
      "rust"
-  ]
+  ],
+  "rust-analyzer": {
+      "checkOnSave.command": "clippy",
+      "cargo.allFeatures": true,
+      "cargo.features": "all",
+      "check.overrideCommand": [
+        "cargo",
+        "clippy",
+        "--message-format=json",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-Dwarnings"
+      ]
+  }
 }
