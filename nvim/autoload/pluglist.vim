@@ -1,7 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " 必須系
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 " 見た目
 Plug 'w0ng/vim-hybrid'
@@ -14,24 +14,27 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
+
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'kkharji/sqlite.lua'
 
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
 
-" QuickRun系
-Plug 'thinca/vim-quickrun'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+" QuickRun
+Plug 'skywind3000/asyncrun.vim'
+Plug 'vim-test/vim-test'
+
+" Debugging for go
+Plug 'sebdah/vim-delve'
+" Plug 'benmills/vimux'
 
 " 移動系
-" Plug 'easymotion/vim-easymotion'
 Plug 'rhysd/clever-f.vim'
 
 " Unite

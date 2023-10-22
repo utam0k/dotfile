@@ -7,13 +7,19 @@ lua << EOF
     vim.opt.termguicolors = true
 
     require("nvim-tree").setup{
+        sort_by = "case_sensitive",
+        view = {
+            width = 50,
+        },
+        renderer = {
+            group_empty = true,
+        },
         diagnostics = {
             enable = true,
             show_on_dirs = true,
          },
          update_focused_file = {
             enable = true,
-            update_root = true,
          },
     }
     require("nvim-web-devicons").setup {
