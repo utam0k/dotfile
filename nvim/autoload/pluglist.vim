@@ -3,9 +3,11 @@ call plug#begin('~/.config/nvim/plugged')
 " 必須系
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
-" 見た目
+" Appearance
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
+Plug 'Mofiqul/vscode.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
@@ -13,6 +15,7 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
+Plug 'm4xshen/autoclose.nvim'
 
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
@@ -21,9 +24,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
 " Git
-Plug 'tpope/vim-fugitive'
-Plug 'rhysd/committia.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
 
 " QuickRun

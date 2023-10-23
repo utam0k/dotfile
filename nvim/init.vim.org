@@ -13,3 +13,4 @@ runtime! config.vim
 runtime! autoload/plug.vim
 runtime! autoload/pluglist.vim
 runtime! userautoload/*.vim
+runtime! userautoload/*.lua
