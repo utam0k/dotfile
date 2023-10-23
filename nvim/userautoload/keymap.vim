@@ -20,5 +20,3 @@ let g:ctrlp_map = '<C-p>'
 " imap <C-b> <BS>
 imap <C-l> <Right>
 imap <C-h> <Left>
-
-noremap tt :tabnew<CR>:terminal<CR>

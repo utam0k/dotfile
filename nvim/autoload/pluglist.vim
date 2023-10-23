@@ -4,11 +4,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 " 見た目
-Plug 'w0ng/vim-hybrid'
 Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
 
 " なんか便利系
-Plug 'Townk/vim-autoclose'
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
@@ -25,6 +24,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'sindrets/diffview.nvim'
 
 " QuickRun
 Plug 'skywind3000/asyncrun.vim'
@@ -32,7 +32,6 @@ Plug 'vim-test/vim-test'
 
 " Debugging for go
 Plug 'sebdah/vim-delve'
-" Plug 'benmills/vimux'
 
 " 移動系
 Plug 'rhysd/clever-f.vim'
@@ -47,44 +46,8 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 
 " copilot
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
-" 言語ごとのプラグイン
-
-" Haskell
-if exists('g:g:hs_setting') && hs_setting == 1
-    Plug 'itchyny/vim-haskell-indent', { 'for': 'haskell'}
-    Plug 'ujihisa/neco-ghc', { 'for': 'haskell'}
-    Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell'}
-endif
-
-" Go
-if exists('g:go_setting') && go_setting == 1
-    " Plug 'fatih/vim-go', { 'for': 'go'}
-    " Plug 'zchee/deoplete-go', { 'for': 'go'}
-endif
-
-" Python
-if exists('g:py_setting') && py_setting == 1
-    Plug 'davidhalter/jedi-vim', { 'for': 'python'}
-    " Plug 'zchee/deoplete-jedi', { 'for': 'python'}
-endif
-
-" Rust
-if exists('g:rust_setting') && rust_setting == 1
-    " Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-    " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-endif
-
-" js
-if exists('g:js_setting') && js_setting == 1
-    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-    Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-endif
-
-" Scala
-if exists('g:scala_setting') && scala_setting == 1
-    Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-endif
+Plug 'hashivim/vim-terraform' , { 'for': 'terraform'}
 
 call plug#end()
