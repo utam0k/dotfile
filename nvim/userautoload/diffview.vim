@@ -1,1 +1,1 @@
-noremap dv :DiffviewOpen<CR>
+" noremap dv :DiffviewOpen<CR>

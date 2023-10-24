@@ -15,12 +15,12 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'm4xshen/autoclose.nvim'
 
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
 " Git
