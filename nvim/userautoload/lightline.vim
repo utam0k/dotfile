@@ -1,7 +1,8 @@
 let g:lightline = {
 \   'colorscheme': 'solarized',
 \   'active': {
-\     'left': [['mode', 'paste'], ['fugitive', 'filename', 'watchdogs']],
+\     'left': [['mode', 'paste'], ['cocstatus', 'fugitive', 'filename', 'watchdogs']],
+\     'right':[[ 'filetype', 'fileencoding', 'lineinfo', 'percent' ]],
 \   },
 \   'component_function': {
 \     'modified':     'LightLineModified',
@@ -12,6 +13,7 @@ let g:lightline = {
 \     'filetype':     'LightLineFiletype',
 \     'fileencoding': 'LightLineFileencoding',
 \     'mode':         'LightLineMode',
+\     'cocstatus': 'StatusDiagnostic',
 \   },
 \   'component_expand': {
 \     'watchdogs': 'qfstatusline#Update',
@@ -69,3 +71,27 @@ endfunction
 
 let g:vimshell_force_overwrite_statusline = 0
 autocmd CursorMoved ControlP let w:lightline = 0
+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+
+  return join(msgs, ''). '' . get(g:, 'coc_status', '')
+endfunction
+
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction

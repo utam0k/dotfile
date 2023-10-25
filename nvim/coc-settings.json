@@ -43,7 +43,7 @@
   "yaml.schemas": {
       "kubernetes": "/*.yaml"
   },
-"go.goplsOptions": {
+  "go.goplsOptions": {
     "completeUnimported": true
   }
 }

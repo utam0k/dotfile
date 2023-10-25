@@ -15,6 +15,7 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
+Plug 'windwp/nvim-autopairs'
 
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
