@@ -1,3 +1,34 @@
+# Save the current work state without GPG signature and optionally switch to a PR for review
+function wip() {
+    # Get the current branch name
+    local current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+    # Check for uncommitted changes and create a WIP commit without GPG signature
+    if ! git diff --quiet || ! git diff --staged --quiet; then
+        git add .
+        git commit --no-gpg-sign -m "WIP-$current_branch: Save uncommitted changes before switching to PR review"
+        git notes add -m "Auto-saved WIP commit"
+    fi
+
+    # Ask the user if they want to switch to a PR
+    echo "Do you want to switch to a PR now? [Y/n]: "
+    read switch_to_pr
+
+    if [[ $switch_to_pr =~ ^[Yy]([eE][sS]|[yY])?$ ]]; then
+        # Use GitHub CLI to fetch PR list and select with peco
+        local pr_number=$(gh pr list | peco | awk '{print $1}')
+        if [[ ! -z $pr_number ]]; then
+            # git fetch origin pull/$pr_number/head:pr-$pr_number
+            # git checkout pr-$pr_number
+            gh pr checkout $pr_number
+        else
+            echo "No PR selected, staying on current branch."
+        fi
+    else
+        echo "Not switching to a PR. Continue your work."
+    fi
+}
+
 # Restore the original work state
 function rwip() {
     # Check the last commit message
