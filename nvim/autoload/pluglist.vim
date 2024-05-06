@@ -8,14 +8,16 @@ Plug 'itchyny/lightline.vim'
 Plug 'Mofiqul/vscode.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'shellRaining/hlchunk.nvim'
+Plug 'shortcuts/no-neck-pain.nvim'
 
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
-Plug 'haya14busa/incsearch.vim'
+" Plug 'haya14busa/incsearch.vim'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'windwp/nvim-autopairs'
+Plug 'folke/flash.nvim'
 
 
 " Telescope
@@ -50,6 +52,7 @@ Plug 'Shougo/neoyank.vim'
 
 " コマンド呼ぶと召喚される系
 Plug 'nvim-tree/nvim-tree.lua'
+Plug 'stevearc/oil.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 
 " copilot
