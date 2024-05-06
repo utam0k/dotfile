@@ -6,8 +6,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 " Appearance
 Plug 'itchyny/lightline.vim'
 Plug 'Mofiqul/vscode.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'shellRaining/hlchunk.nvim'
 
 " なんか便利系
 Plug 'tomtom/tcomment_vim'

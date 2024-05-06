@@ -29,3 +29,30 @@ require('vscode').setup({
     -- }
 })
 require('vscode').load()
+
+vim.cmd.colorscheme "vscode"
+
+-- hlchunk
+require('hlchunk').setup({
+    indent = {
+        enable = true,
+        style = {
+            { fg = c.vscCursorDark},
+        },
+    },
+    chunk = {
+        style = {
+            { fg = c.vscBlue },
+            { fg = c.vscOrange },
+        },
+    },
+    blank = {
+        enable = true,
+        style = {
+            { fg = c.vscCursorDark},
+        },
+    },
+    line_num = {
+        enable = false,
+    }
+})
