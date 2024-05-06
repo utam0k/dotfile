@@ -17,12 +17,17 @@ Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'windwp/nvim-autopairs'
 
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 
+" Telescope
+" Telescope - others
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 Plug 'nvim-lua/plenary.nvim'
+" Telescope - smart open
+Plug 'danielfalk/smart-open.nvim'
+Plug 'kkharji/sqlite.lua'
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
