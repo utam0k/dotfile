@@ -17,8 +17,7 @@ Plug 'majutsushi/tagbar'
 Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'windwp/nvim-autopairs'
-Plug 'folke/flash.nvim'
-
+Plug 'folke/flash.nvim', { 'tag': 'v1.17.0' }
 
 " Telescope
 " Telescope - others
@@ -56,7 +55,7 @@ Plug 'stevearc/oil.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 
 " copilot
-" Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 
 Plug 'hashivim/vim-terraform' , { 'for': 'terraform'}
 
