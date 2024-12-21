@@ -14,7 +14,7 @@ tmux:
 	ln -s $(DOTFILES)/tmux/tmux.conf $(HOME)/.tmux.conf
 
 PYENV_ROOT = $(HOME)/.pyenv
-PYTHON_VERSION = 3.6.0
+PYTHON_VERSION = 3.11.2
 PYENV = $(PYENV_ROOT)/bin/pyenv
 PYENV_NVIM_BIN = $(PYENV_ROOT)/versions/nvim/bin
 nvim:
@@ -40,6 +40,16 @@ nvim:
 	$(PYENV_NVIM_BIN)/pip install pynvim
 	$(PYENV_NVIM_BIN)/pip install jedi flake8-import-order autopep8 black isort
 	sed -i "s@path to python@$(PYENV_NVIM_BIN)/python@g" nvim/init.vim 
+
+pyenv:
+	curl https://pyenv.run | bash
+	echo Please install depenedencies to install Python following https://github.com/pyenv/pyenv/wiki
+
+nvm:
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+arkade:
+	curl -sLS https://get.arkade.dev | sudo sh
 
 bashrc:
 	@if [ -e $(HOME)/.bashrc ]; then\

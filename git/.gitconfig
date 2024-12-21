@@ -1,9 +1,9 @@
 [user]
 	email = k0ma@utam0k.jp
 	name = utam0k
-	signingkey = 14ACDDE088DF059E
+	signingkey = 4CEF50581793522D
 [core]
-	excludesFile = /home/utam0k/.gitignore_global
+	excludesfile = /home/utam0k/.gitignore
 	editor = nvim
 [alias]
 	amend = commit --amend -v
@@ -20,3 +20,32 @@
 	program = gpg
 [commit]
 	gpgsign = true
+[tag]
+	gpgsign = true
+[safe]
+	directory = /home/utam0k/ghq/src/github.com/iovisor/bcc
+	directory = /home/utam0k/ghq/src/github.com/iovisor/bcc/libbpf-tools/blazesym
+	directory = /home/utam0k/ghq/src/github.com/iovisor/bcc/src/cc/libbpf
+	directory = /home/utam0k/ghq/src/github.com/iovisor/bcc/libbpf-tools/bpftool
+	directory = /home/utam0k/ghq/src/github.com/iovisor/bpftrace/bcc
+	directory = /home/utam0k/ghq/src/github.com/iovisor/bpftrace/bcc/libbpf-tools/blazesym
+
+[alias]
+    dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+[delta]
+    features = collared-trogon
+    true-color = always
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    line-numbers = true
+    side-by-side = true
+[interactive]
+    diffFilter = delta --color-only

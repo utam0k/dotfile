@@ -57,3 +57,6 @@ vendor/bundler
 
 .vim-bookmarks
 kubeconfig
+
+.rtx.toml
+.tours/

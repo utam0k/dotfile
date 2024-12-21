@@ -1,9 +1,5 @@
 {
   "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
-    },
     "terraform": {
         "command": "terraform-ls",
         "args": ["serve"],
@@ -26,6 +22,7 @@
      "go",
      "rust"
   ],
+  "coc_diagnostic_disable": 1,
   "rust-analyzer": {
       "checkOnSave.command": "clippy",
       "cargo.allFeatures": true,

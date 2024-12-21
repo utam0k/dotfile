@@ -7,8 +7,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 Plug 'itchyny/lightline.vim'
 Plug 'Mofiqul/vscode.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'shellRaining/hlchunk.nvim'
-Plug 'shortcuts/no-neck-pain.nvim'
+Plug 'shellRaining/hlchunk.nvim', { 'tag': 'v1.1.0' }
 
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
