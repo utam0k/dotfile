@@ -7,13 +7,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 Plug 'itchyny/lightline.vim'
 Plug 'Mofiqul/vscode.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'shellRaining/hlchunk.nvim', { 'tag': 'v1.1.0' }
+Plug 'shellRaining/hlchunk.nvim'
 
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 " Plug 'haya14busa/incsearch.vim'
-Plug 'lighttiger2505/gtags.vim'
+" Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'windwp/nvim-autopairs'
 Plug 'folke/flash.nvim', { 'tag': 'v1.17.0' }
@@ -48,7 +48,7 @@ Plug 'Shougo/unite.vim'
 Plug 'tacroe/unite-mark'
 Plug 'Shougo/neoyank.vim'
 
-" コマンド呼ぶと召喚される系
+" File Search
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'stevearc/oil.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
