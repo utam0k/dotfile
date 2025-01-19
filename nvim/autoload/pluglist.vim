@@ -9,9 +9,6 @@ Plug 'Mofiqul/vscode.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'shellRaining/hlchunk.nvim'
 
-" Moving
-Plug 'smoka7/hop.nvim'
-
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
@@ -43,8 +40,9 @@ Plug 'vim-test/vim-test'
 " Debugging for go
 Plug 'sebdah/vim-delve'
 
-" 移動系
-" Plug 'rhysd/clever-f.vim'
+" Moving
+Plug 'rhysd/clever-f.vim'
+Plug 'smoka7/hop.nvim'
 
 " " Unite
 " Plug 'Shougo/unite.vim'
