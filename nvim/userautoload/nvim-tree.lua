@@ -9,6 +9,11 @@ require("nvim-tree").setup{
 		enable = true,
 		update_cwd = false,
 	},
-    auto_expand_width = false,
+    view = {
+        width = "12%",
+        -- float = {
+        --     enable = true,
+        -- },
+    },
 }
 vim.keymap.set("n", "<SPACE>e", "<CMD>NvimTreeToggle<CR>")
