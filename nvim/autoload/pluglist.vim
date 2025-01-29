@@ -8,6 +8,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'Mofiqul/vscode.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'shellRaining/hlchunk.nvim'
+Plug 'folke/todo-comments.nvim'
+Plug 'nvim-lua/plenary.nvim' " For todo-comments
 
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
