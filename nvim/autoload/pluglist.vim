@@ -14,8 +14,6 @@ Plug 'nvim-lua/plenary.nvim' " For todo-comments
 " なんか便利系
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
-" Plug 'haya14busa/incsearch.vim'
-" Plug 'lighttiger2505/gtags.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'windwp/nvim-autopairs'
 Plug 'folke/flash.nvim', { 'tag': 'v1.17.0' }
@@ -35,9 +33,14 @@ Plug 'kkharji/sqlite.lua'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
 
-" QuickRun
-Plug 'skywind3000/asyncrun.vim'
-Plug 'vim-test/vim-test'
+" For Test
+Plug 'nvim-lua/plenary.nvim'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'nvim-neotest/neotest'
+Plug 'fredrikaverpil/neotest-golang', { 'for': 'go' }
+Plug 'rouge8/neotest-rust', { 'for': 'rust' }
 
 " Debugging for go
 Plug 'sebdah/vim-delve'
@@ -52,9 +55,12 @@ Plug 'smoka7/hop.nvim'
 " Plug 'Shougo/neoyank.vim'
 
 " File Search
-Plug 'nvim-tree/nvim-tree.lua'
 Plug 'stevearc/oil.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v3.x' }
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'MunifTanjim/nui.nvim'
+Plug 's1n7ax/nvim-window-picker'
 
 " copilot
 Plug 'github/copilot.vim'

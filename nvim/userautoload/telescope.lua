@@ -52,4 +52,3 @@ vim.keymap.set("n", "gi", "<cmd>Telescope coc implementations<cr>", { silent = t
 vim.keymap.set("n", "di", "<cmd>Telescope coc diagnostics<cr>", { silent = true })
 vim.keymap.set("n", "ds", "<cmd>Telescope coc document_symbols<cr>", { silent = true })
 vim.keymap.set("n", "gs", "<cmd>Telescope coc workspace_symbols<cr>", { silent = true })
-
