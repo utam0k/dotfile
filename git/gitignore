@@ -60,3 +60,5 @@ kubeconfig
 
 .rtx.toml
 .tours/
+
+pr-*/
