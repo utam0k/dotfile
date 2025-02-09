@@ -46,8 +46,7 @@ Plug 'rouge8/neotest-rust', { 'for': 'rust' }
 Plug 'sebdah/vim-delve'
 
 " Moving
-Plug 'rhysd/clever-f.vim'
-Plug 'smoka7/hop.nvim'
+Plug 'folke/flash.nvim'
 
 " " Unite
 " Plug 'Shougo/unite.vim'

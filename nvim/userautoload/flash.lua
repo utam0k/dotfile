@@ -1,9 +1,14 @@
 local Flash = require("flash")
+Flash.setup()
 vim.keymap.set("n", "s", function() Flash.jump({
     modes = {
         char = {
           enabled = true,
           keys = { "f", "F", "T", ";", "," },
+        },
+        search = {
+          enabled = true,
+          keys = { "s" },
         },
     }
 }) end, { desc = "Flash" })
