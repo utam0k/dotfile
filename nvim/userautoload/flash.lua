@@ -1,17 +1,34 @@
-local Flash = require("flash")
-Flash.setup()
-vim.keymap.set("n", "s", function() Flash.jump({
+require('flash').setup({
+    jump  = { autojump = true },
+
+    label = {
+        rainbow = { enabled = true },
+        uppercase = false ,
+        keys='arstneioqwfpjluy;zxcvbnm'
+    },
+    search = {
+        case = "ignore_case",
+    },
     modes = {
-        char = {
-          enabled = true,
-          keys = { "f", "F", "T", ";", "," },
-        },
         search = {
-          enabled = true,
-          keys = { "s" },
+            enabled = true,
+            jump = { autojump = true },
+            case = "ignore_case",
         },
-    }
-}) end, { desc = "Flash" })
-vim.keymap.set("n", "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
-vim.keymap.set("o", "R", function() require("flash").treesitter_search() end, { desc = "Treesitter Search" })
-vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end, { desc = "Treesitter Search" })
+        char   = { jump_labels = true, multi_line = false },
+    },
+})
+
+local flash = require('flash')
+local map   = vim.keymap.set
+
+map('n', 's', flash.jump,       { desc = 'Flash Jump' })
+map('n', 'S', flash.remote,     { desc = 'Flash Remote Jump' })
+
+map('n', '<leader>fs', flash.toggle, { desc = 'Flash Toggle Search' })
+
+map('n', '<leader>ff', function()
+    require('telescope.builtin').find_files()
+    flash.search({ highlight = false })
+end, { desc = 'Telescope + Flash' })
+

@@ -1,7 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " 必須系
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 " Appearance
 Plug 'itchyny/lightline.vim'
@@ -16,12 +15,11 @@ Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'dyng/ctrlsf.vim'
 Plug 'windwp/nvim-autopairs'
-Plug 'folke/flash.nvim', { 'tag': 'v1.17.0' }
+Plug 'folke/flash.nvim'
 
 " Telescope
 " Telescope - others
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'fannheyward/telescope-coc.nvim'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -65,5 +63,16 @@ Plug 's1n7ax/nvim-window-picker'
 Plug 'github/copilot.vim'
 
 Plug 'hashivim/vim-terraform' , { 'for': 'terraform'}
+" --- Neovim built-in LSP stack (coc.nvim replacement) -------------------
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'onsails/lspkind.nvim'
+Plug 'b0o/schemastore.nvim'
+" -----------------------------------------------------------------------
 
 call plug#end()

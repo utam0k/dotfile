@@ -24,16 +24,8 @@ telescope.setup({
   },
 })
 
-telescope.load_extension('vim_bookmarks', 'coc', 'smart_open')
+telescope.load_extension('vim_bookmarks', 'smart_open')
 
--- vim.keymap.set('n', '<C-p>',
---   function()
---     builtin.find_files({
---       no_ignore = false,
---       hidden = true
---     })
---   end
--- )
 vim.keymap.set('n', '<C-p>', "<cmd>Telescope smart_open<cr>", { silent = true })
 
 vim.keymap.set('n', '<C-g>',
@@ -45,10 +37,11 @@ vim.keymap.set('n', '<C-g>',
   end
 )
 
-vim.keymap.set("n", "gd", "<cmd>Telescope coc definitions<cr>", { silent = true })
--- vim.keymap.set("n", "gs", "<cmd>Telescope coc definitions<cr>", { silent = true })
-vim.keymap.set("n", "gr", "<cmd>Telescope coc references<cr>", { silent = true })
-vim.keymap.set("n", "gy", "<cmd>Telescope coc type_definitions<cr>", { silent = true })
-vim.keymap.set("n", "gi", "<cmd>Telescope coc implementations<cr>", { silent = true })
-vim.keymap.set("n", "di", "<cmd>Telescope coc diagnostics<cr>", { silent = true })
-vim.keymap.set("n", "ds", "<cmd>Telescope coc document_symbols<cr>", { silent = true })
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', 'gd', builtin.lsp_definitions,     { desc = 'Go to definition' })
+vim.keymap.set('n', 'gr', builtin.lsp_references,      { desc = 'References' })
+vim.keymap.set('n', 'gi', builtin.lsp_implementations, { desc = 'Implementations' })
+vim.keymap.set('n', '<leader>D', builtin.lsp_type_definitions, { desc = 'Type definition' })
+vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = 'Document symbols' })
+vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = 'Workspace symbols' })
+
