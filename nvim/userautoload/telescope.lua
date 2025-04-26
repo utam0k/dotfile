@@ -45,3 +45,6 @@ vim.keymap.set('n', '<leader>D', builtin.lsp_type_definitions, { desc = 'Type de
 vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = 'Document symbols' })
 vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = 'Workspace symbols' })
 
+vim.keymap.set('n', 'di', function()
+  builtin.diagnostics({bufnr = 0, severity_limit = vim.diagnostic.severity.HINT})
+end, {desc='Workspace diagnostics'})
