@@ -1,5 +1,5 @@
 require('flash').setup({
-    jump  = { autojump = true },
+    jump  = { autojump = false },
 
     label = {
         rainbow = { enabled = true },
@@ -12,7 +12,7 @@ require('flash').setup({
     modes = {
         search = {
             enabled = true,
-            jump = { autojump = true },
+            jump = { autojump = false },
             case = "ignore_case",
         },
         char   = { jump_labels = true, multi_line = false },

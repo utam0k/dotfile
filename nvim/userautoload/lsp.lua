@@ -20,7 +20,8 @@ local function on_attach(c, b)
     end
 
     if c.name == 'gopls' or c.name == 'rust_analyzer' then
-        vim.api.nvim_create_autocmd('BufWritePre', { buffer = b,
+        vim.api.nvim_create_autocmd('BufWritePre', { 
+            buffer = b,
             callback = function() vim.lsp.buf.format({ async = false }) end })
     end
 
@@ -54,7 +55,15 @@ lspconfig.rust_analyzer.setup({
 lspconfig.terraformls.setup{ cmd = { 'terraform-ls','serve' },
     on_attach = on_attach, capabilities = cap }
 lspconfig.yamlls.setup{ on_attach = on_attach, capabilities = cap,
-    settings = { yaml = { schemas = { kubernetes = '/*.yaml' } } } }
+    -- settings = {
+    --     yaml =
+    --         {
+    --             schemas = {
+    --                 kubernetes = '/*.yaml'
+    --             }
+    --         }
+    -- }
+}
 for _, s in ipairs({ 'lua_ls','clangd','pyright','ts_ls','hls' }) do
     lspconfig[s].setup{ on_attach = on_attach, capabilities = cap }
 end
@@ -72,7 +81,7 @@ cmp.setup{
 
 -- LSP diagnostics & hover popup
 vim.diagnostic.config({
-    virtual_text     = true,
+    virtual_text     = false,
     signs            = true,
     underline        = true,
     update_in_insert = false,
