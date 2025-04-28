@@ -4,7 +4,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Appearance
 Plug 'itchyny/lightline.vim'
-Plug 'Mofiqul/vscode.nvim'
+" Plug 'Mofiqul/vscode.nvim'
+Plug 'rebelot/kanagawa.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'shellRaining/hlchunk.nvim'
 Plug 'folke/todo-comments.nvim'
