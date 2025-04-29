@@ -10,6 +10,11 @@ mason_lsp.setup({ ensure_installed = { 'gopls','rust_analyzer','terraformls','ya
 vim.diagnostic.config({ virtual_text = false, severity_sort = true })
 
 local function on_attach(c, b)
+    if c.name == 'rust_analyzer' then
+        -- For avoiging flickering.
+        c.server_capabilities.semanticTokensProvider = nil
+    end
+
     local function buf_map(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, {
             buffer = bufnr,
@@ -22,8 +27,9 @@ local function on_attach(c, b)
     if c.name == 'gopls' or c.name == 'rust_analyzer' then
         vim.api.nvim_create_autocmd('BufWritePre', { 
             buffer = b,
-            callback = function() vim.lsp.buf.format({ async = false }) end })
+            callback = function() vim.lsp.buf.format({ async = true }) end })
     end
+
 
     --- keymaps
     buf_map('n', [[\rn]], vim.lsp.buf.rename, 'LSP: rename symbol')
@@ -99,3 +105,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end,
 })
 
+
+--  TODO: Remove this line when nvim reaches 0.11.2
+vim.g._ts_force_sync_parsing = true

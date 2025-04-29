@@ -4,8 +4,9 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Appearance
 Plug 'itchyny/lightline.vim'
-" Plug 'Mofiqul/vscode.nvim'
+Plug 'Mofiqul/vscode.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'shellRaining/hlchunk.nvim'
 Plug 'folke/todo-comments.nvim'
@@ -35,7 +36,6 @@ Plug 'sindrets/diffview.nvim'
 " For Test
 Plug 'nvim-lua/plenary.nvim'
 Plug 'antoinemadec/FixCursorHold.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'nvim-neotest/neotest'
 Plug 'fredrikaverpil/neotest-golang', { 'for': 'go' }

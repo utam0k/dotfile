@@ -1,4 +1,4 @@
--- -- Lua:
+-- Lua:
 -- -- For dark theme (neovim's default)
 -- vim.o.background = 'dark'
 --
@@ -57,5 +57,29 @@
 --     }
 -- })
 
-vim.opt.background = "dark" -- set this to dark or light
+
+require('kanagawa').setup({
+  compile      = true,
+  theme        = 'wave',              -- dragon / wave / lotus
+  dimInactive  = false,               -- true を試すのもアリ
+  background   = { dark = 'wave', light = 'lotus' },
+
+  overrides = function(colors)
+    local theme = colors.theme
+    local palette = colors.palette
+    return {
+      Visual = { bg = palette.waveBlue2 },
+      NormalFloat = { bg = "none" },
+      FloatBorder = { bg = "none" },
+      Pmenu     = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+      PmenuSel  = { fg = "NONE",         bg = theme.ui.bg_p2 },
+      PmenuSbar = { bg = theme.ui.bg_m1 },
+      PmenuThumb= { bg = theme.ui.bg_p2 },
+      DiagnosticVirtualTextError = { fg = theme.diag.error,
+                                     bg = require('kanagawa.lib.color')(
+                                           theme.diag.error):blend(theme.ui.bg, 0.93):to_hex() },
+    }
+  end,
+})
+
 vim.cmd.colorscheme 'kanagawa'
