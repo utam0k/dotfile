@@ -27,7 +27,7 @@ local function on_attach(c, b)
     if c.name == 'gopls' or c.name == 'rust_analyzer' then
         vim.api.nvim_create_autocmd('BufWritePre', { 
             buffer = b,
-            callback = function() vim.lsp.buf.format({ async = true }) end })
+            callback = function() vim.lsp.buf.format({ async = false }) end })
     end
 
 

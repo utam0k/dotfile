@@ -60,8 +60,8 @@
 
 require('kanagawa').setup({
   compile      = true,
-  theme        = 'wave',              -- dragon / wave / lotus
-  dimInactive  = false,               -- true を試すのもアリ
+  theme        = 'wave',
+  dimInactive  = false,
   background   = { dark = 'wave', light = 'lotus' },
 
   overrides = function(colors)
@@ -82,4 +82,9 @@ require('kanagawa').setup({
   end,
 })
 
-vim.cmd.colorscheme 'kanagawa'
+require("vague").setup({
+})
+
+vim.o.background = 'dark'
+vim.cmd.colorscheme 'kanagawa' -- For some reason, vague must be set after something else
+vim.cmd.colorscheme 'vague'

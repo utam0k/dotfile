@@ -6,6 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'Mofiqul/vscode.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'vague2k/vague.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'shellRaining/hlchunk.nvim'
