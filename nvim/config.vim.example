@@ -1,6 +1,0 @@
-let g:py_setting = 1
-let g:rust_setting = 1
-let g:go_setting = 1
-let g:cpp_setting = 1
-let g:hs_setting = 1
-let g:scala_setting = 1

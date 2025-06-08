@@ -22,13 +22,9 @@ nvim:
 		mkdir $(HOME)/.config; \
 	fi
 	@if [ -e $(HOME)/.config/nvim ]; then\
-		echo "WARNIGN: $(HOME)/.config/nvim is already exist."; \
+		echo "WARNING: $(HOME)/.config/nvim already exists."; \
 	else \
 		ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
-		cp $(DOTFILES)/nvim/init.vim.org $(DOTFILES)/nvim/init.vim; \
-	fi
-	@if [ ! -e $(DOTFILES)/nvim/config.vim ]; then\
-		cp $(DOTFILES)/nvim/config.vim.example $(DOTFILES)/nvim/config.vim;\
 	fi
 	@if [ ! -e $(PYENV_ROOT)/versions/$(PYTHON_VERSION) ]; then\
 		$(PYENV_ROOT)/bin/pyenv install $(PYTHON_VERSION); \
@@ -39,7 +35,7 @@ nvim:
 	$(PYENV_NVIM_BIN)/pip install --upgrade pip
 	$(PYENV_NVIM_BIN)/pip install pynvim
 	$(PYENV_NVIM_BIN)/pip install jedi flake8-import-order autopep8 black isort
-	sed -i "s@path to python@$(PYENV_NVIM_BIN)/python@g" nvim/init.vim 
+	@echo "Neovim setup complete. Launch nvim to install plugins via lazy.nvim." 
 
 pyenv:
 	curl https://pyenv.run | bash
