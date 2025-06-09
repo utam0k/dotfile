@@ -1,29 +1,19 @@
 -- Mason configuration for LSP server management
 return {
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "gopls",
-          "rust_analyzer",
-          "terraformls",
-          "yamlls",
-          "lua_ls",
-          "pyright",
-        },
-      })
-    end,
-  },
+  "williamboman/mason.nvim",
+  build = ":MasonUpdate",
+  cmd = "Mason",
+  lazy = false,
+  priority = 100,
+  config = function()
+    require("mason").setup({
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗"
+        }
+      }
+    })
+  end,
 }

@@ -4,8 +4,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "MattesGroeger/vim-bookmarks",
-      "tom-anders/telescope-vim-bookmarks.nvim",
+      -- vim-bookmarks removed in favor of marks.nvim
       {
         "danielfalk/smart-open.nvim",
         dependencies = { "kkharji/sqlite.lua" },
@@ -32,6 +31,7 @@ return {
             severity_limit = vim.diagnostic.severity.HINT
           })
         end, desc = "Buffer diagnostics" },
+      { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Find marks" },
     },
     config = function()
       local telescope = require("telescope")
@@ -50,8 +50,10 @@ return {
           },
         },
       })
-      telescope.load_extension("vim_bookmarks")
+      -- vim_bookmarks extension removed
       telescope.load_extension("smart_open")
+      -- Load aerial extension if available
+      pcall(telescope.load_extension, "aerial")
     end,
   },
 }
