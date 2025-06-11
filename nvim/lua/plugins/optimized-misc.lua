@@ -16,4 +16,22 @@ return {
     lazy = true,
     ft = { "json", "jsonc", "yaml" },
   },
+  
+  -- Comment toggling
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("Comment").setup({
+        toggler = {
+          line = "co",
+          block = "cO",
+        },
+        opleader = {
+          line = "co",
+          block = "cO",
+        },
+      })
+    end,
+  },
 }
