@@ -10,9 +10,19 @@ return {
   },
   cmd = "Neotree",
   keys = {
-    { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
+    { "<Space>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
+    { "<Space>g", "<cmd>Neotree git_status<cr>", desc = "Neo-tree Git status" },
+    { "<Space>b", "<cmd>Neotree buffers<cr>", desc = "Neo-tree Buffers" },
   },
   config = function()
-    require("neo-tree").setup({})
+    require("neo-tree").setup({
+      filesystem = {
+        filtered_items = {
+          visible = true, -- 隠しファイルを表示
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+      },
+    })
   end,
 }
