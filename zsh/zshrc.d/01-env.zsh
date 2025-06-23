@@ -6,5 +6,7 @@ if command -v nvim > /dev/null; then
 elif command -v vim > /dev/null; then
     export EDITOR=$(which vim)
 else
-    export EIDTOR=$(which vi)
+    export EDITOR=$(which vi)
 fi
+
+autoload -Uz compinit && compinit
