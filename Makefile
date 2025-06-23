@@ -12,6 +12,13 @@ tmux:
 		mv $(HOME)/.tmux.conf $(HOME)/.tmux.conf.org; \
 	fi
 	ln -s $(DOTFILES)/tmux/tmux.conf $(HOME)/.tmux.conf
+	@if [ ! -e $(HOME)/.tmux ]; then\
+		mkdir -p $(HOME)/.tmux; \
+	fi
+	@if [ -e $(HOME)/.tmux/scripts ]; then\
+		rm -rf $(HOME)/.tmux/scripts; \
+	fi
+	ln -s $(DOTFILES)/tmux/scripts $(HOME)/.tmux/scripts
 
 PYENV_ROOT = $(HOME)/.pyenv
 PYTHON_VERSION = 3.11.2
