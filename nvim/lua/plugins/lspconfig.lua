@@ -17,10 +17,10 @@ return {
 
 		-- Diagnostic signs
 		local DIAGNOSTIC_SIGNS = {
-			[vim.diagnostic.severity.ERROR] = "✘",
-			[vim.diagnostic.severity.WARN] = "▲",
-			[vim.diagnostic.severity.HINT] = "⚡",
-			[vim.diagnostic.severity.INFO] = "»",
+			[vim.diagnostic.severity.ERROR] = "❗",
+			[vim.diagnostic.severity.WARN] = "⚠️",
+			[vim.diagnostic.severity.HINT] = "💡",
+			[vim.diagnostic.severity.INFO] = "ℹ️",
 		}
 
 		-- Diagnostic configuration
@@ -28,6 +28,13 @@ return {
 			virtual_text = {
 				prefix = "●",
 				source = "if_many",
+				spacing = 4,
+				format = function(diagnostic)
+					if diagnostic.source then
+						return string.format("[%s] %s", diagnostic.source, diagnostic.message)
+					end
+					return diagnostic.message
+				end,
 			},
 			float = {
 				border = BORDER_STYLE,

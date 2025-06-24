@@ -114,6 +114,61 @@ return {
 
 				vim.cmd(cmd)
 			end
+
+			-- Enhanced diagnostic highlights for better visibility
+			local diagnostic_highlights = {
+				-- Main diagnostic colors
+				{ "DiagnosticError", { guifg = "#ff5555", gui = "bold" } },
+				{ "DiagnosticWarn", { guifg = "#ffb86c", gui = "bold" } },
+				{ "DiagnosticInfo", { guifg = "#8be9fd" } },
+				{ "DiagnosticHint", { guifg = "#50fa7b" } },
+
+				-- Virtual text with background colors
+				{ "DiagnosticVirtualTextError", { guifg = "#ff5555", guibg = "#3a2a2a", gui = "bold" } },
+				{ "DiagnosticVirtualTextWarn", { guifg = "#ffb86c", guibg = "#3a3229", gui = "bold" } },
+				{ "DiagnosticVirtualTextInfo", { guifg = "#8be9fd", guibg = "#2a3239" } },
+				{ "DiagnosticVirtualTextHint", { guifg = "#50fa7b", guibg = "#2a3a2a" } },
+
+				-- Line number highlighting for errors
+				{ "DiagnosticLineNrError", { guifg = "#ff5555", guibg = "#4a2a2a", gui = "bold" } },
+				{ "DiagnosticLineNrWarn", { guifg = "#ffb86c", guibg = "#4a3a29", gui = "bold" } },
+				{ "DiagnosticLineNrInfo", { guifg = "#8be9fd", guibg = "#2a3a4a" } },
+				{ "DiagnosticLineNrHint", { guifg = "#50fa7b", guibg = "#2a4a2a" } },
+
+				-- Sign column
+				{ "DiagnosticSignError", { guifg = "#ff5555", gui = "bold" } },
+				{ "DiagnosticSignWarn", { guifg = "#ffb86c", gui = "bold" } },
+				{ "DiagnosticSignInfo", { guifg = "#8be9fd" } },
+				{ "DiagnosticSignHint", { guifg = "#50fa7b" } },
+
+				-- Underline styles
+				{ "DiagnosticUnderlineError", { gui = "undercurl", guisp = "#ff5555" } },
+				{ "DiagnosticUnderlineWarn", { gui = "undercurl", guisp = "#ffb86c" } },
+				{ "DiagnosticUnderlineInfo", { gui = "undercurl", guisp = "#8be9fd" } },
+				{ "DiagnosticUnderlineHint", { gui = "undercurl", guisp = "#50fa7b" } },
+			}
+
+			-- Apply diagnostic highlights
+			for _, highlight in ipairs(diagnostic_highlights) do
+				local name = highlight[1]
+				local attrs = highlight[2]
+				local cmd = string.format("highlight %s", name)
+
+				if attrs.guifg then
+					cmd = cmd .. " guifg=" .. attrs.guifg
+				end
+				if attrs.guibg then
+					cmd = cmd .. " guibg=" .. attrs.guibg
+				end
+				if attrs.gui then
+					cmd = cmd .. " gui=" .. attrs.gui
+				end
+				if attrs.guisp then
+					cmd = cmd .. " guisp=" .. attrs.guisp
+				end
+
+				vim.cmd(cmd)
+			end
 		end,
 	},
 }
