@@ -3,8 +3,8 @@ return {
   "github/copilot.vim",
   event = "VeryLazy", -- Load earlier to ensure it's ready
   config = function()
-    -- Disable default Tab mapping to avoid conflicts
-    vim.g.copilot_no_tab_map = true
+    -- Enable Tab key mapping (comment out or remove this line)
+    -- vim.g.copilot_no_tab_map = true
     
     -- Enable Copilot on startup
     vim.g.copilot_enabled = true
