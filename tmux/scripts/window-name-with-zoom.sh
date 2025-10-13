@@ -12,27 +12,36 @@ cmd="${cmd##*/}"
 get_git_branch() {
     local dir="$1"
     while [[ "$dir" != "/" ]]; do
-        if [[ -e "$dir/.git" ]]; then
-            local head_file=""
-            
-            # Handle both regular repos and worktrees
-            if [[ -f "$dir/.git" ]]; then
-                # It's a worktree - .git is a file pointing to the real git dir
-                local gitdir
-                gitdir=$(sed 's/gitdir: //' < "$dir/.git")
-                head_file="$gitdir/HEAD"
-            elif [[ -d "$dir/.git" ]]; then
-                # Regular repo - .git is a directory
-                head_file="$dir/.git/HEAD"
+        if git -C "$dir" rev-parse --git-dir >/dev/null 2>&1; then
+            local branch
+
+            # Prefer symbolic ref to avoid transient detached HEAD states.
+            branch=$(git -C "$dir" symbolic-ref --quiet --short HEAD 2>/dev/null)
+            if [[ -n "$branch" ]]; then
+                echo "$branch"
+                return
             fi
-            
-            if [[ -n "$head_file" && -f "$head_file" ]]; then
-                local branch
-                branch=$(sed 's/ref: refs\/heads\///' < "$head_file" 2>/dev/null)
-                if [[ -n "$branch" && "$branch" != *"HEAD"* ]]; then
-                    echo "$branch"
-                    return
-                fi
+
+            # Fallback to abbreviated ref when symbolic-ref is not available.
+            branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null)
+            if [[ -n "$branch" && "$branch" != "HEAD" ]]; then
+                echo "$branch"
+                return
+            fi
+
+            # Use name-rev to surface the closest ref before giving up.
+            branch=$(git -C "$dir" name-rev --name-only --no-undefined HEAD 2>/dev/null)
+            if [[ -n "$branch" && "$branch" != "undefined" ]]; then
+                echo "$branch"
+                return
+            fi
+
+            # As a last resort, indicate detached state with the short commit.
+            local short_hash
+            short_hash=$(git -C "$dir" rev-parse --short HEAD 2>/dev/null)
+            if [[ -n "$short_hash" ]]; then
+                echo "detached@${short_hash}"
+                return
             fi
         fi
         dir=$(dirname "$dir")
