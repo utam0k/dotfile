@@ -7,6 +7,7 @@ return {
     "williamboman/mason.nvim",
   },
   config = function()
+    local lsp_helpers = require("config.lsp_helpers")
     -- Constants
     local BORDER_STYLE = "rounded"
 
@@ -57,58 +58,8 @@ return {
       end,
     })
 
-    -- Create capabilities with nvim-cmp
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-    -- Shared on_attach function
-    local on_attach = function(client, bufnr)
-      -- Attach navic if available and client supports document symbols
-      if client.server_capabilities.documentSymbolProvider then
-        local navic_ok, navic = pcall(require, "nvim-navic")
-        if navic_ok then
-          navic.attach(client, bufnr)
-        end
-      end
-
-      -- Buffer local mappings
-      local map = function(mode, lhs, rhs, desc)
-        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
-      end
-
-      -- Navigation mappings (handled by telescope.lua for gd/gr)
-      map("n", "K", vim.lsp.buf.hover, "LSP: Hover documentation")
-      map("n", "<leader>k", vim.lsp.buf.signature_help, "LSP: Signature help")
-      map("i", "<C-k>", vim.lsp.buf.signature_help, "LSP: Signature help")
-
-      -- Action mappings
-      map("n", "\\rn", vim.lsp.buf.rename, "LSP: Rename symbol")
-      map({ "n", "x" }, "\\ca", vim.lsp.buf.code_action, "LSP: Code action")
-      -- Note: Formatting is handled by conform.nvim (\\f mapping in formatting.lua)
-
-      -- Workspace mappings
-      map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "LSP: Add workspace folder")
-      map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "LSP: Remove workspace folder")
-      map("n", "<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, "LSP: List workspace folders")
-
-      -- Client-specific settings
-      if client.name == "rust_analyzer" then
-        -- Disable semantic tokens to avoid flickering
-        client.server_capabilities.semanticTokensProvider = nil
-      end
-
-      -- Disable LSP formatting in favor of conform.nvim
-      -- This prevents conflicts and ensures consistent formatting
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-
-      -- Enable inlay hints if supported
-      if client.supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-      end
-    end
+    local capabilities = lsp_helpers.make_capabilities()
+    local on_attach = lsp_helpers.on_attach
 
     -- Note: Auto-formatting is handled by conform.nvim to avoid conflicts
 
@@ -127,42 +78,6 @@ return {
           },
         },
       },
-
-      rust_analyzer = {
-        settings = {
-          ["rust-analyzer"] = {
-            allFeatures = true,
-            cargo = {
-              allFeatures = true,
-              features = "all",
-              loadOutDirsFromCheck = true,
-              buildScripts = { enable = true },
-            },
-            check = {
-              command = "clippy",
-              overrideCommand = {
-                "cargo",
-                "clippy",
-                "--message-format=json",
-                "--all-targets",
-                "--all-features",
-                "--",
-                "-Dwarnings",
-              },
-            },
-            procMacro = {
-              enable = true,
-            },
-            diagnostics = {
-              -- disabled = { "tracing" },
-              experimental = {
-                enable = true,
-              },
-            },
-          },
-        },
-      },
-
       terraformls = {
         cmd = { "terraform-ls", "serve" },
       },

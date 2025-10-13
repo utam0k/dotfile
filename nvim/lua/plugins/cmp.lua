@@ -6,14 +6,18 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "onsails/lspkind.nvim",
+    "rafamadriz/friendly-snippets",
   },
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
+
+    require("luasnip.loaders.from_vscode").lazy_load()
     
     cmp.setup({
       snippet = {
@@ -28,6 +32,7 @@ return {
       }),
       sources = {
         { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
@@ -38,5 +43,16 @@ return {
         }),
       },
     })
+    cmp.setup.filetype("toml", {
+      sources = {
+        { name = "crates" },
+        { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" },
+      },
+    })
+
   end,
 }

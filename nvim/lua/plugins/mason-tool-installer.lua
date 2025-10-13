@@ -16,6 +16,9 @@ return {
         "prettier",
         "stylua",
         "shfmt",
+        "delve",
+        "codelldb",
+        "rust-analyzer",
       },
       
       -- Auto update on startup

@@ -7,7 +7,7 @@
 -- - :FormatEnable: Re-enable auto-format
 --
 -- OSS CONTRIBUTION NOTES:
--- - Go: Uses only gofmt -s (no goimports) to avoid import changes
+-- - Go: Run goimports first, then gofmt -s for stable formatting
 -- - Go: Async formatting won't block save on syntax errors
 -- - Visual mode: Format only selected lines for partial edits
 return {
@@ -27,8 +27,8 @@ return {
 	opts = {
 		-- Define formatters per filetype
 		formatters_by_ft = {
-			-- Go (using only gofmt for OSS contributions)
-			go = { "gofmt" },
+			-- Go: goimports handles imports, gofmt -s polishes syntax
+			go = { "goimports", "gofmt" },
 
 			-- Rust
 			rust = { "rustfmt" },
@@ -124,6 +124,9 @@ return {
 		formatters = {
 			gofmt = {
 				prepend_args = { "-s" }, -- Simplify code
+			},
+			goimports = {
+				-- Default settings keep imports tidy
 			},
 			shfmt = {
 				prepend_args = {
