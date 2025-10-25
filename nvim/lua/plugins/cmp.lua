@@ -19,7 +19,15 @@ return {
 
     require("luasnip.loaders.from_vscode").lazy_load()
     
+    local disabled_filetypes = {
+      ["neo-tree-popup"] = true,
+      ["neo-tree"] = true,
+    }
+
     cmp.setup({
+      enabled = function()
+        return not disabled_filetypes[vim.bo.filetype]
+      end,
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
