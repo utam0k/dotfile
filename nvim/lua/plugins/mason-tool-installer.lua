@@ -10,6 +10,10 @@ return {
     require("mason-tool-installer").setup({
       ensure_installed = {
         -- Formatters only (LSP handles diagnostics/linting)
+        "clangd",
+        "clang-format",
+        "clang-tidy",
+        "bear",
         "goimports",
         "gofumpt",
         "ruff",

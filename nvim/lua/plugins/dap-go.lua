@@ -20,6 +20,49 @@ return {
       vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DiagnosticSignError" })
       vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticSignInfo" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "○", texthl = "DiagnosticSignWarn" })
+
+      local codelldb_paths = require("config.codelldb").get_paths()
+      if codelldb_paths then
+        if not dap.adapters.codelldb then
+          local lib_dir = vim.fn.fnamemodify(codelldb_paths.liblldb, ":h")
+          dap.adapters.codelldb = {
+            type = "server",
+            port = "${port}",
+            executable = {
+              command = codelldb_paths.codelldb,
+              args = { "--port", "${port}" },
+              detached = false,
+              env = {
+                LLDB_LIBRARY_PATH = lib_dir,
+              },
+            },
+          }
+        end
+
+        local function pick_executable()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end
+
+        local launch = {
+          name = "Launch file",
+          type = "codelldb",
+          request = "launch",
+          program = pick_executable,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+        }
+
+        local attach = {
+          name = "Attach to process",
+          type = "codelldb",
+          request = "attach",
+          pid = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+        }
+
+        dap.configurations.c = { launch, attach }
+        dap.configurations.cpp = { launch, attach }
+      end
     end,
   },
   {

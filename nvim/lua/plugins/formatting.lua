@@ -128,6 +128,9 @@ return {
 			goimports = {
 				-- Default settings keep imports tidy
 			},
+			clang_format = {
+				prepend_args = { "--style=file" },
+			},
 			shfmt = {
 				prepend_args = {
 					"-i",

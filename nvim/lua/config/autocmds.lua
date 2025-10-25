@@ -51,3 +51,15 @@ autocmd("FileChangedShellPost", {
   end,
   desc = "Notify when file is reloaded due to external changes",
 })
+
+
+-- Auto-resize splits when terminal window changes size
+local auto_equal_group = augroup("AutoResizeSplits", { clear = true })
+
+autocmd("VimResized", {
+  group = auto_equal_group,
+  callback = function()
+    vim.cmd("wincmd =")
+  end,
+  desc = "Equalize window splits after terminal resize",
+})

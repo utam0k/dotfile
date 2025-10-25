@@ -134,7 +134,7 @@ return {
           "--clang-tidy",
           "--header-insertion=iwyu",
           "--completion-style=detailed",
-          "--function-arg-placeholders",
+          "--function-arg-placeholders=true",
         },
         init_options = {
           usePlaceholders = true,
@@ -144,7 +144,6 @@ return {
       },
 
       ts_ls = {},
-      hls = {},
 
       -- Additional servers can be added here:
       -- marksman = { filetypes = { "markdown", "markdown.mdx" } },
