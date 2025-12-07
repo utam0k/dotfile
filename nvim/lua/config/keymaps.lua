@@ -74,11 +74,7 @@ end, "Go to tab %d")
 map("n", "tc", function()
 	vim.cmd("tablast")
 	vim.cmd("tabnew")
-	-- Trigger telescope after creating new tab
-	vim.defer_fn(function()
-		vim.cmd("Telescope smart_open")
-	end, 50)
-end, { desc = "Create new tab and open file picker" })
+end, { desc = "Create new tab" })
 
 map("n", "tx", function()
 	vim.cmd("tabclose")

@@ -3,6 +3,11 @@ return {
   {
     "A7Lavinraj/fyler.nvim",
     branch = "stable",
+    -- Requires Neovim 0.11+. Skip loading (and the keymaps) on older versions to
+    -- avoid calling missing API functions like `fyler.toggle`.
+    cond = vim.fn.has("nvim-0.11") == 1,
+    -- Eager-load after startup so API is ready before keymaps are pressed
+    event = "VeryLazy",
     dependencies = {
       {
         "nvim-mini/mini.icons",
@@ -20,6 +25,7 @@ return {
         desc = "Fyler: Toggle explorer",
       },
     },
+    cmd = { "Fyler" },
     opts = {
       view = { bufname = "Fyler" },
       git_status = {
@@ -38,69 +44,91 @@ return {
     },
     config = function(_, opts)
       local fs = require("fyler.lib.fs")
-      local original_listdir = fs.listdir
+      local original_ls = fs.ls
       local show_hidden = false
       local git_root_cache = {}
 
-      local function get_git_root(dir)
+      local function get_git_root_async(dir, cb)
         dir = vim.fs.normalize(dir)
         if git_root_cache[dir] ~= nil then
-          return git_root_cache[dir] or nil
+          vim.schedule(function()
+            cb(git_root_cache[dir] or nil)
+          end)
+          return
         end
-        local result = vim.system({ "git", "-C", dir, "rev-parse", "--show-toplevel" }, { text = true, stdout = true, stderr = false }):wait()
-        if result.code == 0 then
-          local root = vim.trim(result.stdout)
-          git_root_cache[dir] = root
-          return root
-        end
-        git_root_cache[dir] = false
-        return nil
+
+        vim.system({ "git", "-C", dir, "rev-parse", "--show-toplevel" }, { text = true, stdout = true, stderr = false }, function(result)
+          local root = nil
+          if result and result.code == 0 then
+            root = vim.trim(result.stdout)
+          end
+          git_root_cache[dir] = root or false
+          cb(root)
+        end)
       end
 
-      local function filter_gitignored(dir, items)
-        local root = get_git_root(dir)
-        if not root then
-          return items
-        end
+      local function filter_gitignored_async(dir, items, cb)
+        get_git_root_async(dir, function(root)
+          if not root then
+            cb(items)
+            return
+          end
 
-        local paths = {}
-        for _, item in ipairs(items) do
-          paths[#paths + 1] = item.path
-        end
-        if #paths == 0 then
-          return items
-        end
+          local paths = {}
+          for _, item in ipairs(items) do
+            paths[#paths + 1] = item.path
+          end
+          if #paths == 0 then
+            cb(items)
+            return
+          end
 
-        local input = table.concat(paths, "\n") .. "\n"
-        local result = vim.system({ "git", "-C", dir, "check-ignore", "--stdin" }, { stdin = input, text = true, stdout = true, stderr = false }):wait()
-        if not (result.code == 0 or result.code == 1) then
-          return items
-        end
+          local input = table.concat(paths, "\n") .. "\n"
+          vim.system({ "git", "-C", dir, "check-ignore", "--stdin" }, { stdin = input, text = true, stdout = true, stderr = false }, function(result)
+            if not result or not (result.code == 0 or result.code == 1) then
+              cb(items)
+              return
+            end
 
-        local ignored = {}
-        for line in string.gmatch(result.stdout or "", "[^\n]+") do
-          ignored[vim.trim(line)] = true
-        end
+            local ignored = {}
+            for line in string.gmatch(result.stdout or "", "[^\n]+") do
+              ignored[vim.trim(line)] = true
+            end
 
-        if vim.tbl_isempty(ignored) then
-          return items
-        end
+            if vim.tbl_isempty(ignored) then
+              cb(items)
+              return
+            end
 
-        return vim.tbl_filter(function(item)
-          return not ignored[item.path]
-        end, items)
+            cb(vim.tbl_filter(function(item)
+              return not ignored[item.path]
+            end, items))
+          end)
+        end)
       end
 
-      fs.listdir = function(path)
-        local items = original_listdir(path)
-        if show_hidden then
-          return items
-        end
-        local without_dotfiles = vim.tbl_filter(function(item)
-          local name = item.name or vim.fs.basename(item.path)
-          return not name:match("^%.")
-        end, items)
-        return filter_gitignored(path, without_dotfiles)
+      fs.ls = function(path, callback)
+        original_ls(path, function(err, items)
+          if err or not items then
+            callback(err, items)
+            return
+          end
+
+          local filtered = items
+          if not show_hidden then
+            filtered = vim.tbl_filter(function(item)
+              local name = item.name or vim.fs.basename(item.path)
+              return not name:match("^%.")
+            end, filtered)
+
+            filter_gitignored_async(path, filtered, function(result_items)
+              callback(nil, result_items)
+            end)
+            return
+          end
+
+          callback(nil, filtered)
+        end)
       end
 
       opts.mappings = opts.mappings or {}
