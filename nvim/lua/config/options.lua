@@ -39,10 +39,11 @@ opt.tags = "" -- Prevents E433 error when no tags file exists
 
 -- Appearance
 opt.termguicolors = true -- Enable 24-bit RGB colors
-opt.mouse = "" -- Disable mouse support
+opt.mouse = "a" -- Enable mouse support
 opt.cursorline = true -- Highlight current line
 opt.background = "dark" -- Tell plugins we prefer dark colorschemes
 opt.number = true -- Show line numbers
+opt.signcolumn = "yes:1" -- Keep sign column stable (for diff bars)
 opt.cmdheight = 0 -- Hide command line when not in use
 opt.showmode = false -- Don't show mode in command line
 opt.laststatus = 0 -- Hide statusline completely

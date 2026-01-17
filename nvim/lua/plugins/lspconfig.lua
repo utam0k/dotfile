@@ -51,11 +51,24 @@ return {
       severity_sort = true,
     })
 
-    -- Show diagnostics on hover
+    -- Show diagnostics on hover (only when there are diagnostics on the line)
     vim.api.nvim_create_autocmd("CursorHold", {
       callback = function()
+        -- Avoid popping floats in insert/terminal modes
+        local mode = vim.api.nvim_get_mode().mode
+        if mode ~= "n" and mode ~= "no" then
+          return
+        end
+
+        local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+        local diags = vim.diagnostic.get(0, { lnum = lnum })
+        if diags == nil or vim.tbl_isempty(diags) then
+          return
+        end
+
         vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
       end,
+      desc = "Auto-open diagnostic float on CursorHold",
     })
 
     local capabilities = lsp_helpers.make_capabilities()
