@@ -3,6 +3,7 @@ return {
   -- Replace lightline.vim with lualine.nvim
   {
     "nvim-lualine/lualine.nvim",
+    enabled = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
     config = function()

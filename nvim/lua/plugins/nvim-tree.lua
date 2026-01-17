@@ -1,10 +1,46 @@
 -- File tree explorer (Zed-like sidebar)
+local function set_git_filter_state(explorer, git_only)
+  explorer.filters.enabled = true
+  explorer.filters.state.git_clean = git_only
+  explorer.filters.state.git_ignored = git_only
+end
+
+local function toggle_view(git_only)
+  local api = require("nvim-tree.api")
+  local core = require("nvim-tree.core")
+
+  if api.tree.is_visible() then
+    local explorer = core.get_explorer()
+    if not explorer then
+      return
+    end
+
+    local is_git_only = explorer.filters.state.git_clean and explorer.filters.state.git_ignored
+    if is_git_only == git_only then
+      api.tree.close()
+      return
+    end
+  else
+    api.tree.open()
+  end
+
+  local explorer = core.get_explorer()
+  if not explorer then
+    return
+  end
+
+  set_git_filter_state(explorer, git_only)
+  explorer:reload_explorer()
+  api.tree.focus()
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
   keys = {
-    { "<Space>e", "<cmd>NvimTreeToggle<cr>", desc = "NvimTree: Toggle explorer" },
+    { "<Space>e", function() toggle_view(false) end, desc = "NvimTree: Toggle normal view" },
+    { "<Space>g", function() toggle_view(true) end, desc = "NvimTree: Toggle git-only view" },
   },
   config = function()
     local function calc_width()
@@ -96,6 +132,7 @@ return {
       filters = {
         dotfiles = false,
         git_ignored = false,
+        git_clean = false,
       },
       actions = {
         open_file = {
