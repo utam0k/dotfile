@@ -30,6 +30,23 @@ return {
     })
 
     -- Additional keymaps for overlay
+    local function sync_overlay(buf)
+      local mini = require("mini.diff")
+      local desired = vim.g.minidiff_overlay_all
+      if desired == nil then
+        return
+      end
+
+      local data = mini.get_buf_data(buf)
+      if not data then
+        return
+      end
+
+      if data.overlay ~= desired then
+        mini.toggle_overlay(buf)
+      end
+    end
+
     vim.keymap.set("n", "<leader>go", function()
       local mini = require("mini.diff")
       local targets = {}
@@ -50,11 +67,23 @@ return {
       end
 
       local target_state = any_off
+      vim.g.minidiff_overlay_all = target_state
       for _, item in ipairs(targets) do
         if item.overlay ~= target_state then
           mini.toggle_overlay(item.buf)
         end
       end
     end, { desc = "Toggle git diff overlay (all buffers)" })
+
+    local augroup = vim.api.nvim_create_augroup("MiniDiffOverlayAll", { clear = true })
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "BufNewFile" }, {
+      group = augroup,
+      callback = function(args)
+        vim.schedule(function()
+          sync_overlay(args.buf)
+        end)
+      end,
+      desc = "Sync mini.diff overlay with global toggle",
+    })
   end,
 }
