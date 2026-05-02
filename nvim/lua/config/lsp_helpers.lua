@@ -6,13 +6,6 @@ function M.make_capabilities()
 end
 
 function M.on_attach(client, bufnr)
-	if client.server_capabilities.documentSymbolProvider then
-		local ok, navic = pcall(require, "nvim-navic")
-		if ok then
-			navic.attach(client, bufnr)
-		end
-	end
-
 	local map = function(mode, lhs, rhs, desc)
 		vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
 	end

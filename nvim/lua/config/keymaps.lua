@@ -54,8 +54,7 @@ end, { desc = "Clear search highlight" })
 
 -- Create numbered z mappings for precise scrolling
 create_numbered_mappings("z", 9, function(i)
-	vim.cmd("normal! zt")
-	vim.cmd("normal! " .. i .. "j")
+	vim.cmd("normal! zt" .. i .. "j")
 end, "Scroll to top and move %d lines down")
 
 -- ============================================================================

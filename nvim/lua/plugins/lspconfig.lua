@@ -207,6 +207,7 @@ return {
 		end
 
 		-- Force synchronous parsing for Treesitter
-		vim.g._ts_force_sync_parsing = true
+		-- Removed: vim.g._ts_force_sync_parsing = true (no longer needed
+		-- after nvim-treesitter main migration; async parsing is stable).
 	end,
 }

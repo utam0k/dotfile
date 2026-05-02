@@ -102,7 +102,4 @@ return {
 			highlight = "RenderMarkdownLink",
 		},
 	},
-	config = function(_, opts)
-		require("render-markdown").setup(opts)
-	end,
 }
