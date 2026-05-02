@@ -256,15 +256,3 @@ end, { desc = "Source current file" })
 
 -- DiffView alias
 vim.cmd("command! DV DiffviewOpen")
-
--- ============================================================================
--- READING NOTES (permalink + excerpt)
--- ============================================================================
-
-map("n", "<Space>no", "<cmd>ReadingNotesOpen<cr>", { desc = "Open reading notes" })
-map("n", "<Space>nt", "<cmd>ReadingNotesToggle<cr>", { desc = "Toggle reading notes" })
-map("n", "<Space>nc", "<cmd>ReadingNotesCapture<cr>", { desc = "Capture permalink to notes" })
-map("v", "<Space>nc", ":ReadingNotesCapture<cr>", { desc = "Capture permalink to notes (visual)", silent = true })
-map("n", "<Space>nj", "<cmd>ReadingNotesOpenCodeUnderCursor<cr>", { desc = "Jump to code from permalink" })
-map("n", "<Space>nu", "<cmd>ReadingNotesOpenUrlUnderCursor<cr>", { desc = "Open URL under cursor" })
-map("n", "<Space>nU", "<cmd>ReadingNotesCopyUrlUnderCursor<cr>", { desc = "Copy URL under cursor" })
