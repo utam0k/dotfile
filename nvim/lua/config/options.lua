@@ -13,8 +13,8 @@ opt.wrap = false
 opt.wildmode = "list,full"
 
 -- Scroll behavior
-opt.scrolloff = 8      -- Keep 8 lines above/below cursor when scrolling
-opt.sidescrolloff = 8  -- Keep 8 columns left/right of cursor when scrolling
+opt.scrolloff = 8 -- Keep 8 lines above/below cursor when scrolling
+opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor when scrolling
 
 -- Performance
 opt.updatetime = 300 -- Faster CursorHold for auto-reload
@@ -26,7 +26,9 @@ vim.cmd([[
 ]])
 
 -- Persistent undo
-opt.undodir = vim.fn.expand("$HOME/.config/nvim/undo")
+local undodir = vim.fn.stdpath("config") .. "/undo"
+vim.fn.mkdir(undodir, "p")
+opt.undodir = undodir
 opt.undofile = true
 
 -- File handling
