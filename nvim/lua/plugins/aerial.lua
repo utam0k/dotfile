@@ -178,4 +178,3 @@ return {
 		vim.keymap.set("n", "<leader>fa", "<cmd>Telescope aerial<cr>", { desc = "Search symbols (Aerial)" })
 	end,
 }
-

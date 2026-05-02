@@ -7,59 +7,58 @@ local general = augroup("General", { clear = true })
 
 -- Open quickfix window automatically after grep commands
 autocmd("QuickFixCmdPost", {
-  pattern = "*grep*",
-  command = "cwindow",
-  group = general,
-  desc = "Open quickfix window after grep",
+	pattern = "*grep*",
+	command = "cwindow",
+	group = general,
+	desc = "Open quickfix window after grep",
 })
 
 -- Highlight cursor line only in active window
 autocmd("WinLeave", {
-  callback = function()
-    vim.opt_local.cursorline = false
-  end,
-  group = general,
-  desc = "Disable cursorline in inactive windows",
+	callback = function()
+		vim.opt_local.cursorline = false
+	end,
+	group = general,
+	desc = "Disable cursorline in inactive windows",
 })
 
 autocmd({ "WinEnter", "BufWinEnter" }, {
-  callback = function()
-    vim.opt_local.cursorline = true
-  end,
-  group = general,
-  desc = "Enable cursorline in active window",
+	callback = function()
+		vim.opt_local.cursorline = true
+	end,
+	group = general,
+	desc = "Enable cursorline in active window",
 })
 
 -- Auto-reload files when changed externally
 autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-  group = general,
-  pattern = "*",
-  callback = function()
-    if vim.fn.getcmdwintype() == "" then
-      vim.cmd("checktime")
-    end
-  end,
-  desc = "Check for file changes outside of Vim",
+	group = general,
+	pattern = "*",
+	callback = function()
+		if vim.fn.getcmdwintype() == "" then
+			vim.cmd("checktime")
+		end
+	end,
+	desc = "Check for file changes outside of Vim",
 })
 
 -- Notify when file changed
 autocmd("FileChangedShellPost", {
-  group = general,
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_echo({ { "File changed on disk. Buffer reloaded.", "WarningMsg" } }, true, {})
-  end,
-  desc = "Notify when file is reloaded due to external changes",
+	group = general,
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_echo({ { "File changed on disk. Buffer reloaded.", "WarningMsg" } }, true, {})
+	end,
+	desc = "Notify when file is reloaded due to external changes",
 })
-
 
 -- Auto-resize splits when terminal window changes size
 local auto_equal_group = augroup("AutoResizeSplits", { clear = true })
 
 autocmd("VimResized", {
-  group = auto_equal_group,
-  callback = function()
-    vim.cmd("wincmd =")
-  end,
-  desc = "Equalize window splits after terminal resize",
+	group = auto_equal_group,
+	callback = function()
+		vim.cmd("wincmd =")
+	end,
+	desc = "Equalize window splits after terminal resize",
 })

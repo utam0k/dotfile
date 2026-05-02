@@ -35,4 +35,3 @@ return {
 		vim.keymap.set("n", "<leader>mb", "<cmd>MarksListBuf<cr>", { desc = "List buffer marks" })
 	end,
 }
-
