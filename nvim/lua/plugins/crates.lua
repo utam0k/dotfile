@@ -1,7 +1,6 @@
 -- Cargo.toml helper UI
 return {
 	"saecki/crates.nvim",
-	version = "v0.4.0",
 	ft = { "toml" },
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
@@ -10,7 +9,7 @@ return {
 			smart_insert = true,
 			insert_closing_quote = true,
 			completion = {
-				cmp = { enabled = true },
+				crates = { enabled = true, max_results = 8 },
 			},
 			popup = {
 				border = "rounded",

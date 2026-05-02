@@ -2,7 +2,11 @@ local M = {}
 
 function M.make_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	return vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+	local ok, blink = pcall(require, "blink.cmp")
+	if ok then
+		return blink.get_lsp_capabilities(capabilities)
+	end
+	return capabilities
 end
 
 function M.on_attach(client, bufnr)
