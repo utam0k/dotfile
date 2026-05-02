@@ -9,6 +9,7 @@ return {
 		"saghen/blink.lib",
 		"L3MON4D3/LuaSnip",
 		"rafamadriz/friendly-snippets",
+		"echasnovski/mini.icons",
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
@@ -26,6 +27,25 @@ return {
 					columns = {
 						{ "label", "label_description", gap = 1 },
 						{ "kind_icon", "kind", gap = 1 },
+					},
+					-- Pull kind icons + their highlight groups from mini.icons.
+					components = {
+						kind_icon = {
+							text = function(ctx)
+								local icon = require("mini.icons").get("lsp", ctx.kind)
+								return icon and (icon .. " ") or ctx.kind_icon
+							end,
+							highlight = function(ctx)
+								local _, hl = require("mini.icons").get("lsp", ctx.kind)
+								return hl
+							end,
+						},
+						kind = {
+							highlight = function(ctx)
+								local _, hl = require("mini.icons").get("lsp", ctx.kind)
+								return hl
+							end,
+						},
 					},
 				},
 			},
@@ -45,6 +65,7 @@ return {
 		},
 	},
 	config = function(_, opts)
+		require("mini.icons").setup({})
 		require("blink.cmp").setup(opts)
 		-- Load friendly-snippets bundle into LuaSnip (not done by blink's preset).
 		require("luasnip.loaders.from_vscode").lazy_load()
