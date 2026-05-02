@@ -55,7 +55,7 @@ end, { desc = "Clear search highlight" })
 -- Create numbered z mappings for precise scrolling
 create_numbered_mappings("z", 9, function(i)
 	vim.cmd("normal! zt")
-	vim.cmd("normal! " .. i .. "")
+	vim.cmd("normal! " .. i .. "j")
 end, "Scroll to top and move %d lines down")
 
 -- ============================================================================
@@ -99,8 +99,12 @@ map("t", "<C-]>", [[<C-\><C-n>]], { desc = "Exit terminal mode (alternative)" })
 -- Terminal tab navigation (1-9)
 for i = 1, 9 do
 	map("t", "t" .. i, function()
-		vim.cmd([[<C-\><C-n>]])
-		vim.cmd("tabnext " .. i)
+		-- Exit terminal mode then jump to tab i
+		local esc = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true)
+		vim.api.nvim_feedkeys(esc, "n", false)
+		vim.schedule(function()
+			vim.cmd("tabnext " .. i)
+		end)
 	end, { desc = "Go to tab " .. i .. " from terminal" })
 end
 
@@ -253,3 +257,15 @@ end, { desc = "Source current file" })
 
 -- DiffView alias
 vim.cmd("command! DV DiffviewOpen")
+
+-- ============================================================================
+-- READING NOTES (permalink + excerpt)
+-- ============================================================================
+
+map("n", "<Space>no", "<cmd>ReadingNotesOpen<cr>", { desc = "Open reading notes" })
+map("n", "<Space>nt", "<cmd>ReadingNotesToggle<cr>", { desc = "Toggle reading notes" })
+map("n", "<Space>nc", "<cmd>ReadingNotesCapture<cr>", { desc = "Capture permalink to notes" })
+map("v", "<Space>nc", ":ReadingNotesCapture<cr>", { desc = "Capture permalink to notes (visual)", silent = true })
+map("n", "<Space>nj", "<cmd>ReadingNotesOpenCodeUnderCursor<cr>", { desc = "Jump to code from permalink" })
+map("n", "<Space>nu", "<cmd>ReadingNotesOpenUrlUnderCursor<cr>", { desc = "Open URL under cursor" })
+map("n", "<Space>nU", "<cmd>ReadingNotesCopyUrlUnderCursor<cr>", { desc = "Copy URL under cursor" })
