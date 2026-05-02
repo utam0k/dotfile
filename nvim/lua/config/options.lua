@@ -32,8 +32,7 @@ opt.undodir = undodir
 opt.undofile = true
 
 -- File handling
-opt.autoread = true -- Automatically read file when changed outside of Vim
-opt.backup = false -- Don't create backup files
+-- Note: autoread=true and backup=false are Neovim defaults (kept implicit).
 opt.swapfile = false -- Don't create swap files
 
 -- Disable tags

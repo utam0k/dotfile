@@ -8,7 +8,9 @@ local general = augroup("General", { clear = true })
 -- Open quickfix window automatically after grep commands
 autocmd("QuickFixCmdPost", {
 	pattern = "*grep*",
-	command = "cwindow",
+	callback = function()
+		vim.cmd("cwindow")
+	end,
 	group = general,
 	desc = "Open quickfix window after grep",
 })
@@ -31,7 +33,9 @@ autocmd({ "WinEnter", "BufWinEnter" }, {
 })
 
 -- Auto-reload files when changed externally
-autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+-- Note: dropped CursorHold/CursorHoldI — checktime fires per-keystroke pause
+-- via FixCursorHold (updatetime=100), causing constant disk stat() calls.
+autocmd({ "FocusGained", "BufEnter" }, {
 	group = general,
 	pattern = "*",
 	callback = function()

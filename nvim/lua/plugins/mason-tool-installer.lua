@@ -9,8 +9,11 @@ return {
 	config = function()
 		require("mason-tool-installer").setup({
 			ensure_installed = {
-				-- Formatters only (LSP handles diagnostics/linting)
+				-- LSP servers
 				"clangd",
+				"rust-analyzer",
+				"typescript-language-server",
+				-- Formatters & linters
 				"clang-format",
 				"clang-tidy",
 				"bear",
@@ -20,9 +23,9 @@ return {
 				"prettier",
 				"stylua",
 				"shfmt",
+				-- Debuggers
 				"delve",
 				"codelldb",
-				"rust-analyzer",
 			},
 
 			-- Auto update on startup
