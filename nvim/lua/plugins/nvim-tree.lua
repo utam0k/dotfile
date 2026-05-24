@@ -149,9 +149,9 @@ return {
 					},
 				},
 				icons = {
-					webdev_colors = false,
+					webdev_colors = true,
 					show = {
-						file = false,
+						file = true,
 						folder = false,
 						folder_arrow = true,
 						git = true,
@@ -206,8 +206,9 @@ return {
 			desc = "Resize NvimTree sidebar",
 		})
 
-		local events = require("nvim-tree.events")
-		events.subscribe(events.Event.TreeClose, function()
+		-- Note: as of recent nvim-tree, events.Event is no longer re-exported
+		-- on the events module; subscribe takes the event name as a string.
+		require("nvim-tree.events").subscribe("TreeClose", function()
 			vim.schedule(balance_non_tree_windows)
 		end)
 	end,

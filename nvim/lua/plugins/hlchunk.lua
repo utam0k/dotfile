@@ -7,8 +7,8 @@ return {
 			chunk = {
 				enable = true,
 				style = {
-					{ fg = "#806d9c" },
-					{ fg = "#c21f30" }, -- エラーチャンクの色
+					{ fg = "#d2a6ff" },
+					{ fg = "#d95757" }, -- エラーチャンクの色
 				},
 			},
 			indent = {
@@ -18,8 +18,7 @@ return {
 				},
 			},
 			line_num = {
-				enable = true,
-				style = "#806d9c",
+				enable = false,
 			},
 			blank = {
 				enable = false,
