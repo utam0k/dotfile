@@ -15,8 +15,6 @@ return {
 				"typescript-language-server",
 				-- Formatters & linters
 				"clang-format",
-				"clang-tidy",
-				"bear",
 				"goimports",
 				"gofumpt",
 				"ruff",
