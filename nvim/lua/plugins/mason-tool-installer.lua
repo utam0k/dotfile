@@ -23,6 +23,8 @@ return {
 				"prettier",
 				"stylua",
 				"shfmt",
+				-- Test runners
+				"gotestsum",
 				-- Debuggers
 				"delve",
 				"codelldb",
