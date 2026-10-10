@@ -50,10 +50,14 @@ autocmd({ "FocusGained", "BufEnter" }, {
 autocmd("FileChangedShellPost", {
 	group = general,
 	pattern = "*",
-	callback = function()
-		vim.api.nvim_echo({ { "File changed on disk. Buffer reloaded.", "WarningMsg" } }, true, {})
+	callback = function(args)
+		local message = "File changed on disk."
+		if vim.bo[args.buf].modified then
+			message = message .. " Unsaved edits kept."
+		end
+		vim.api.nvim_echo({ { message, "WarningMsg" } }, true, {})
 	end,
-	desc = "Notify when file is reloaded due to external changes",
+	desc = "Notify about external changes without claiming the buffer was reloaded",
 })
 
 -- Auto-resize splits when terminal window changes size
