@@ -1,42 +1,41 @@
 -- GitHub Copilot — Lua-native engine (replaces github/copilot.vim)
--- Default accept keymap is <M-l> (Alt+L); see suggestion.keymap below.
--- Requires Node.js >= 20 for the language server.
+-- Tab accepts visible suggestions via blink.lua; Alt+L also accepts.
 return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
+	dependencies = {
+		{
+			"copilotlsp-nvim/copilot-lsp",
+			-- The local freshness guard uses this version's NES preview API.
+			commit = "1b6d8273594643f51bb4c0c1d819bdb21b42159d",
+		},
+	},
 	opts = {
 		suggestion = {
 			enabled = true,
 			auto_trigger = true,
+			-- Keep suggestions visible alongside blink's menu (Enter accepts blink).
 			-- Defaults: <M-l> accept, <M-]> next, <M-[> prev, <C-]> dismiss.
 		},
 		panel = { enabled = false },
+		nes = {
+			enabled = true,
+			keymap = { dismiss = "<Esc>" },
+		},
 		-- Filetypes: copilot.lua's defaults disable yaml/markdown/help/
 		-- gitcommit/gitrebase/hgcommit/svn/cvs. Keep those.
 	},
 	config = function(_, opts)
+		local nes = require("config.copilot_nes")
+		nes.setup()
 		require("copilot").setup(opts)
-
-		-- Hide the inline suggestion while blink.cmp's menu is open so the
-		-- two completion surfaces don't overlap visually.
-		local group = vim.api.nvim_create_augroup("user_copilot_blink", { clear = true })
-		vim.api.nvim_create_autocmd("User", {
-			group = group,
-			pattern = "BlinkCmpMenuOpen",
-			callback = function()
-				vim.b.copilot_suggestion_hidden = true
-			end,
-			desc = "Hide Copilot ghost text while blink.cmp menu is open",
-		})
-		vim.api.nvim_create_autocmd("User", {
-			group = group,
-			pattern = "BlinkCmpMenuClose",
-			callback = function()
-				vim.b.copilot_suggestion_hidden = false
-			end,
-			desc = "Show Copilot ghost text when blink.cmp menu closes",
-		})
+		vim.keymap.set("n", "<Tab>", function()
+			if nes.accept() then
+				return ""
+			end
+			return "<C-I>"
+		end, { expr = true, desc = "Accept Copilot edit or jump forward" })
 
 		-- Preserve :CopilotToggle from the copilot.vim era.
 		vim.api.nvim_create_user_command("CopilotToggle", function()

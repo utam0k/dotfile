@@ -15,7 +15,27 @@ return {
 	---@type blink.cmp.Config
 	opts = {
 		-- 'enter' = <CR> accepts, plus the common C-n/C-p/C-space/C-e bindings.
-		keymap = { preset = "enter" },
+		keymap = {
+			preset = "enter",
+			["<Tab>"] = {
+				function()
+					local suggestion = package.loaded["copilot.suggestion"]
+					local nes = package.loaded["config.copilot_nes"]
+					if suggestion and suggestion.is_visible() then
+						if nes then
+							nes.clear()
+						end
+						suggestion.accept()
+						return true
+					end
+					if nes and nes.accept() then
+						return true
+					end
+				end,
+				"snippet_forward",
+				"fallback",
+			},
+		},
 		snippets = { preset = "luasnip" },
 		signature = { enabled = true },
 		-- Prefer the Rust matcher, fall back to Lua with a warning if unavailable.
