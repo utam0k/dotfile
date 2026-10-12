@@ -15,6 +15,7 @@ opt.wildmode = "list,full"
 -- Scroll behavior
 opt.scrolloff = 8 -- Keep 8 lines above/below cursor when scrolling
 opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor when scrolling
+opt.jumpoptions:append("view") -- Restore the viewport when returning from a jump
 
 -- Performance
 opt.updatetime = 300 -- Faster CursorHold for auto-reload
