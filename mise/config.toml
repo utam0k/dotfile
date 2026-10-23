@@ -1,0 +1,25 @@
+# Shared versions for the editor, shell, and development tools.
+# Linked to ~/.config/mise/config.toml by `make mise`.
+[tools]
+delta = "0.20.1"
+fd = "10.5.0"
+fzf = "0.74.5"
+gh = "2.103.0"
+ghq = "1.11.2"
+go = "1.27.3"
+golangci-lint = "2.15.0"
+jq = "1.8.2"
+kubectl = "1.37.1"
+lazygit = "0.66.2"
+lua-language-server = "3.19.2"
+neovim = "0.12.6"
+node = "26.12.1"
+peco = "0.6.0"
+ripgrep = "15.2.0"
+terraform = "1.17.0"
+tmux = "3.7c"
+tree-sitter = "0.27.1"
+uv = "0.13.5"
+
+[settings]
+experimental = true

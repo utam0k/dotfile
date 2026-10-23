@@ -77,4 +77,10 @@ load_conf_file $DOTFILE/bash/functions.bash
 
 if_load_conf_file $pyenv $DOTFILE/bash/pyenv.bash
 if_load_conf_file $cargo $DOTFILE/bash/cargo.bash
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate bash)"
+elif [ -x "$HOME/.local/bin/mise" ]; then
+    eval "$("$HOME/.local/bin/mise" activate bash)"
+fi
+
 export EDITOR=nvim

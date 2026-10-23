@@ -1,8 +1,11 @@
 DOTFILES := $(shell pwd)
 SHELL_RC = ${HOME}/.bashrc
 
-all: setup zshrc pyenv python tmux nvim git
-.PHONY: setup zshrc pyenv python tmux nvim git
+all: mise setup zshrc pyenv python tmux nvim git
+.PHONY: mise setup zshrc pyenv python tmux nvim git
+
+mise:
+	sh "$(DOTFILES)/install/mise.sh"
 
 setup:
 	$(DOTFILES)/setup.sh

@@ -1,3 +1,10 @@
+# Activate the same tool versions used by the other shells.
+if type -q mise
+    mise activate fish | source
+else if test -x "$HOME/.local/bin/mise"
+    "$HOME/.local/bin/mise" activate fish | source
+end
+
 # Path to Oh My Fish install.
 set -gx OMF_PATH "/home/utam0k/.local/share/omf"
 
