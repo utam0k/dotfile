@@ -23,9 +23,28 @@ return {
 				end,
 				desc = "Live grep",
 			},
-			{ "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Go to definition" },
-			{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-			{ "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
+			-- In a CodeDiff tab these open the target in a new tab (lua/config/review.lua)
+			{
+				"gd",
+				function()
+					require("config.review").lsp("lsp_definitions")
+				end,
+				desc = "Go to definition",
+			},
+			{
+				"gr",
+				function()
+					require("config.review").lsp("lsp_references")
+				end,
+				desc = "References",
+			},
+			{
+				"gi",
+				function()
+					require("config.review").lsp("lsp_implementations")
+				end,
+				desc = "Implementations",
+			},
 			{ "<leader>D", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Type definition" },
 			{ "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
 			{ "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace symbols" },
