@@ -1,9 +1,9 @@
 -- Review GitHub pull requests in a dedicated git worktree.
 --
--- `:Review <number>` checks the PR head out into
--- <repo>/.worktree/pr/pr-<number> with bin/review-worktree (shared with the
--- zsh `review` command) and opens :CodeDiff against the merge base of the
--- PR's base branch, the same range as GitHub's "Files changed".
+-- `:Review <number>` checks the PR out with gh-worktree in review mode through
+-- bin/review-worktree (shared with the zsh `review` command) and opens
+-- :CodeDiff on that worktree. Its HEAD is the merge base of the PR's base
+-- branch, so the local changes are the same range as GitHub's "Files changed".
 --
 -- Diff tabs get a tab-local cwd in the repository they show, LSP jumps from a
 -- diff tab open in a new tab so the diff layout stays intact, and the file
@@ -45,8 +45,7 @@ function M.open(number)
 				notify(vim.trim(result.stderr), vim.log.levels.ERROR)
 				return
 			end
-			local path, base = unpack(vim.split(vim.trim(result.stdout), "\n"))
-			vim.cmd(("CodeDiff --repo %s %s..."):format(vim.fn.fnameescape(path), base))
+			vim.cmd("CodeDiff --repo " .. vim.fn.fnameescape(vim.trim(result.stdout)))
 		end)
 	end)
 end

@@ -1,7 +1,8 @@
-"""Check the zsh `review` command against real git repositories.
+"""Check the zsh `review` command and bin/review-worktree.
 
-gh, peco and nvim are replaced by fakes; git and bin/review-worktree are real.
-The worktree rules themselves are covered through Neovim in nvim/tests/review.lua.
+gh (including `gh worktree`), peco and nvim are replaced by fakes; the zsh
+function and the script are real. gh-worktree's own behaviour is tested in its
+repository.
 """
 
 import os
@@ -14,51 +15,50 @@ import unittest
 REPO = Path(__file__).resolve().parents[1]
 SOURCE = REPO / "zsh/zshrc.d/65-review.zsh"
 
+# Mirrors gh-worktree: `cd` fails for a missing worktree, `pr --cd` creates it,
+# and both print the path without a newline. `sync` reports to stdout.
+FAKE_GH = """\
+printf "%s\\n" "$*" >> "$REVIEW_TEST_LOG"
+for number; do :; done
+worktree="$PWD/.worktree/pr/pr-$number"
+case "$1 $2" in
+"pr list") printf "%s" "$REVIEW_TEST_PRS" ;;
+"worktree cd")
+    [ -d "$worktree" ] || { echo "worktree for PR #$number not found" >&2; exit 1; }
+    printf "%s" "$worktree" ;;
+"worktree pr") mkdir -p "$worktree" && printf "%s" "$worktree" ;;
+"worktree sync")
+    if [ -n "$REVIEW_TEST_SYNC_ERROR" ]; then
+        echo "$REVIEW_TEST_SYNC_ERROR" >&2
+        exit 1
+    fi
+    echo "Synced PR #$number to abc1234" ;;
+esac
+"""
+
 
 class ReviewCommandTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix=".review-test-", dir=REPO)
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        gitconfig = self.root / "gitconfig"
-        gitconfig.write_text("[user]\n\tname = Review Test\n\temail = review@example.com\n")
         bindir = self.root / "bin"
         bindir.mkdir()
-        self.fake(bindir / "gh", 'printf "%s\\n" "$*" >> "$REVIEW_TEST_LOG"\n'
-                  'case "$1 $2" in\n'
-                  '"pr view") printf "main\\tTest PR\\n" ;;\n'
-                  '"pr list") printf "7\\tTest PR\\tpr7\\tOPEN\\n8\\tOther\\tpr8\\tOPEN\\n" ;;\n'
-                  "esac\n")
-        self.fake(bindir / "peco", 'tee -a "$REVIEW_TEST_LOG" | head -n "${PECO_PICK:-1}" | tail -n 1\n')
+        self.fake(bindir / "gh", FAKE_GH)
+        self.fake(bindir / "peco", 'echo peco >> "$REVIEW_TEST_LOG"\n'
+                  'head -n "${PECO_PICK:-1}" | tail -n 1\n')
         self.fake(bindir / "nvim", 'printf "nvim %s %s\\n" "$PWD" "$*" >> "$REVIEW_TEST_LOG"\n')
         self.log = self.root / "calls"
         self.env = dict(os.environ)
         self.env.update(
             PATH=f"{bindir}:{os.environ['PATH']}",
-            GIT_CONFIG_GLOBAL=str(gitconfig),
-            GIT_CONFIG_NOSYSTEM="1",
             REVIEW_TEST_LOG=str(self.log),
+            REVIEW_TEST_PRS="7\tTest PR\tpr7\tOPEN\n8\tOther\tpr8\tOPEN\n",
+            REVIEW_TEST_SYNC_ERROR="",
         )
-
-        remote = self.root / "remote.git"
-        seed = self.root / "seed"
-        self.clone = self.root / "clone"
-        self.git(self.root, "init", "--quiet", "--bare", "--initial-branch=main", str(remote))
-        self.git(self.root, "init", "--quiet", "--initial-branch=main", str(seed))
-        (seed / "file.txt").write_text("base\n")
-        self.git(seed, "add", ".")
-        self.git(seed, "commit", "--quiet", "-m", "base")
-        self.git(seed, "push", "--quiet", str(remote), "main")
-        (seed / "file.txt").write_text("pr\n")
-        self.git(seed, "commit", "--quiet", "-am", "pr")
-        self.git(seed, "push", "--quiet", str(remote), "HEAD:refs/pull/7/head")
-        self.pr_head = self.git(seed, "rev-parse", "HEAD")
-        self.git(self.root, "clone", "--quiet", str(remote), str(self.clone))
-        url = "https://github.com/test/repo.git"
-        self.git(self.clone, "config", f"url.{remote}.insteadOf", url)
-        self.git(self.clone, "remote", "set-url", "origin", url)
-        (self.clone / ".git/info/exclude").write_text(".worktree/\n")
-        self.worktree = self.clone / ".worktree/pr/pr-7"
+        self.repo = self.root / "repo"
+        self.repo.mkdir()
+        self.worktree = self.repo / ".worktree/pr/pr-7"
 
         # ~/.zshrc is a symlink to the built zshrc, so source the file through one.
         self.rc = self.root / "zshrc"
@@ -68,17 +68,11 @@ class ReviewCommandTest(unittest.TestCase):
         path.write_text("#!/bin/sh\n" + body)
         path.chmod(0o755)
 
-    def git(self, cwd, *args):
-        result = subprocess.run(
-            ["git", *args], cwd=cwd, env=self.env, check=True, capture_output=True, text=True
-        )
-        return result.stdout.strip()
-
     def review(self, *args, **env):
         script = f'source {self.rc}; review {" ".join(args)}; echo "status=$? pwd=$PWD"'
         return subprocess.run(
             ["zsh", "-fc", script],
-            cwd=self.clone,
+            cwd=self.repo,
             env={**self.env, **env},
             check=False,
             capture_output=True,
@@ -88,34 +82,54 @@ class ReviewCommandTest(unittest.TestCase):
     def calls(self):
         return self.log.read_text().splitlines() if self.log.exists() else []
 
-    def test_review_number_cds_into_the_worktree_and_opens_the_diff(self):
+    def test_review_number_creates_the_worktree_and_opens_the_diff(self):
         result = self.review("7")
         self.assertIn(f"status=0 pwd={self.worktree}", result.stdout, result.stderr)
-        self.assertEqual(self.git(self.worktree, "rev-parse", "HEAD"), self.pr_head)
-        self.assertEqual(self.calls()[-1], f"nvim {self.worktree} +CodeDiff origin/main...")
+        self.assertEqual(
+            self.calls(),
+            ["worktree cd 7", "worktree pr --cd 7", f"nvim {self.worktree} +CodeDiff"],
+        )
+
+    def test_existing_worktree_is_moved_to_the_latest_head(self):
+        self.worktree.mkdir(parents=True)
+        result = self.review("7")
+        self.assertIn(f"status=0 pwd={self.worktree}", result.stdout, result.stderr)
+        self.assertEqual(
+            self.calls(),
+            [
+                "worktree cd 7",
+                "worktree pr --reuse --cd 7",
+                "worktree sync 7",
+                f"nvim {self.worktree} +CodeDiff",
+            ],
+        )
 
     def test_review_without_number_picks_an_open_pr_with_peco(self):
-        result = self.review(PECO_PICK="1")
-        self.assertIn(f"status=0 pwd={self.worktree}", result.stdout, result.stderr)
+        result = self.review(PECO_PICK="2")
+        worktree = self.repo / ".worktree/pr/pr-8"
+        self.assertIn(f"status=0 pwd={worktree}", result.stdout, result.stderr)
         calls = self.calls()
-        self.assertEqual(calls[0], "pr list --repo github.com/test/repo")
-        self.assertIn("8\tOther\tpr8\tOPEN", calls, "peco did not receive the PR list")
-        self.assertEqual(calls[-1], f"nvim {self.worktree} +CodeDiff origin/main...")
+        self.assertEqual(calls[:2], ["pr list", "peco"])
+        self.assertEqual(calls[-1], f"nvim {worktree} +CodeDiff")
 
     def test_cancelled_pick_stays_put(self):
         result = self.review(PECO_PICK="0")
-        self.assertIn(f"status=1 pwd={self.clone}", result.stdout, result.stderr)
-        self.assertFalse(any(call.startswith("nvim ") for call in self.calls()))
+        self.assertIn(f"status=1 pwd={self.repo}", result.stdout, result.stderr)
+        self.assertEqual(self.calls(), ["pr list", "peco"])
+
+    def test_no_open_pull_requests_skips_peco(self):
+        result = self.review(REVIEW_TEST_PRS="")
+        self.assertIn(f"status=1 pwd={self.repo}", result.stdout)
+        self.assertIn("no open pull requests", result.stderr)
+        self.assertEqual(self.calls(), ["pr list"])
 
     def test_failure_keeps_the_shell_and_skips_nvim(self):
-        self.review("7")
-        (self.worktree / "file.txt").write_text("my notes\n")
-        self.log.unlink()
-        result = self.review("7")
-        self.assertIn(f"status=1 pwd={self.clone}", result.stdout)
-        self.assertIn("has uncommitted changes", result.stderr)
+        self.worktree.mkdir(parents=True)
+        error = "worktree has local changes; use --force to discard them"
+        result = self.review("7", REVIEW_TEST_SYNC_ERROR=error)
+        self.assertIn(f"status=1 pwd={self.repo}", result.stdout)
+        self.assertIn(error, result.stderr)
         self.assertFalse(any(call.startswith("nvim ") for call in self.calls()))
-        self.assertEqual((self.worktree / "file.txt").read_text(), "my notes\n")
 
 
 if __name__ == "__main__":

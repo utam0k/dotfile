@@ -1,29 +1,30 @@
 -- Run with: NVIM_LOG_FILE=/dev/null nvim --headless -u NONE -i NONE -n -l tests/review.lua
--- Uses real git repositories in a scratch directory; gh, :CodeDiff, codediff's
--- session lookup and Telescope are stubbed.
+-- bin/review-worktree is real; gh (including `gh worktree`), :CodeDiff,
+-- codediff's session lookup and Telescope are stubbed.
 local root = vim.fn.getcwd()
 local base = root .. "/.agent/review-check"
 vim.fn.delete(base, "rf")
 vim.fn.mkdir(base .. "/bin", "p")
 vim.opt.runtimepath:prepend(root)
 
--- Isolate git from the user's config (commit signing, ignores, credentials).
-vim.fn.writefile({
-	"[user]",
-	"\tname = Review Test",
-	"\temail = review@example.com",
-	"[init]",
-	"\tdefaultBranch = main",
-}, base .. "/gitconfig")
-vim.env.GIT_CONFIG_GLOBAL = base .. "/gitconfig"
-vim.env.GIT_CONFIG_NOSYSTEM = "1"
-
--- gh stub: records its arguments and prints what bin/review-worktree's --jq selects.
+-- gh stub, mirroring gh-worktree: `cd` fails for a missing worktree, `pr --cd`
+-- creates it, and both print the path without a newline. `sync` reports to
+-- stdout, or fails with $REVIEW_TEST_SYNC_ERROR.
 local gh_log = base .. "/gh.log"
 vim.fn.writefile({
 	"#!/bin/sh",
 	'printf "%s\\n" "$*" >> "' .. gh_log .. '"',
-	[[printf 'main\tTest PR\n']],
+	"for number; do :; done",
+	'worktree="$PWD/.worktree/pr/pr-$number"',
+	'case "$1 $2" in',
+	'"worktree cd")',
+	'    [ -d "$worktree" ] || { echo "worktree for PR #$number not found" >&2; exit 1; }',
+	'    printf "%s" "$worktree" ;;',
+	'"worktree pr") mkdir -p "$worktree" && printf "%s" "$worktree" ;;',
+	'"worktree sync")',
+	'    if [ -n "$REVIEW_TEST_SYNC_ERROR" ]; then echo "$REVIEW_TEST_SYNC_ERROR" >&2; exit 1; fi',
+	'    echo "Synced PR #$number to abc1234" ;;',
+	"esac",
 }, base .. "/bin/gh")
 vim.fn.setfperm(base .. "/bin/gh", "rwxr-xr-x")
 vim.env.PATH = base .. "/bin:" .. vim.env.PATH
@@ -33,52 +34,15 @@ local function pass(name)
 	passed = passed + 1
 	print("PASS " .. name)
 end
-local function git(cwd, ...)
-	local cmd = { "git", ... }
-	local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
-	assert(result.code == 0, table.concat(cmd, " ") .. ": " .. result.stderr)
-	return vim.trim(result.stdout)
-end
-local function last_gh_call()
-	local lines = vim.fn.readfile(gh_log)
-	return lines[#lines]
+local function gh_calls()
+	local calls = vim.fn.filereadable(gh_log) == 1 and vim.fn.readfile(gh_log) or {}
+	vim.fn.delete(gh_log)
+	return calls
 end
 
-local remote = base .. "/remote.git"
-local seed = base .. "/seed"
-local clone = base .. "/clone"
-git(base, "init", "--quiet", "--bare", remote)
-git(base, "init", "--quiet", seed)
-vim.fn.writefile({ "base" }, seed .. "/file.txt")
-git(seed, "add", ".")
-git(seed, "commit", "--quiet", "-m", "base")
-git(seed, "push", "--quiet", remote, "main")
-
--- Publish a PR head the way GitHub does: a commit on main under refs/pull/<n>/head.
-local function push_pr(n, content)
-	git(seed, "checkout", "--quiet", "-B", "pr" .. n, "main")
-	vim.fn.writefile({ content }, seed .. "/file.txt")
-	git(seed, "commit", "--quiet", "-am", content)
-	git(seed, "push", "--quiet", "--force", remote, "HEAD:refs/pull/" .. n .. "/head")
-	return git(seed, "rev-parse", "HEAD")
-end
-
-git(base, "clone", "--quiet", remote, clone)
-vim.fn.writefile({ ".worktree/" }, clone .. "/.git/info/exclude")
--- GitHub-looking remote URLs that git rewrites to the local bare repository.
-local function add_alias(url)
-	git(clone, "config", "--add", "url." .. remote .. ".insteadOf", url)
-end
-add_alias("https://github.com/test/repo.git")
-git(clone, "remote", "set-url", "origin", "https://github.com/test/repo.git")
-
--- Advance main after cloning so the review has to fetch the base branch.
-git(seed, "checkout", "--quiet", "main")
-vim.fn.writefile({ "base" }, seed .. "/other.txt")
-git(seed, "add", ".")
-git(seed, "commit", "--quiet", "-m", "main moves on")
-git(seed, "push", "--quiet", remote, "main")
-local main_head = git(seed, "rev-parse", "HEAD")
+local repo = base .. "/repo"
+local path = repo .. "/.worktree/pr/pr-1"
+vim.fn.mkdir(repo, "p")
 
 local opened, errors = {}, {}
 vim.api.nvim_create_user_command("CodeDiff", function(args)
@@ -93,9 +57,9 @@ end
 local review = require("config.review")
 review.setup()
 
-local function run_review(number, cwd)
+local function run_review(number)
 	local before_open, before_error = #opened, #errors
-	vim.cmd.cd(vim.fn.fnameescape(cwd or clone))
+	vim.cmd.cd(vim.fn.fnameescape(repo))
 	review.open(number)
 	assert(
 		vim.wait(10000, function()
@@ -107,61 +71,34 @@ local function run_review(number, cwd)
 end
 
 local ok, err = xpcall(function()
-	local path = clone .. "/.worktree/pr/pr-1"
-	local head = push_pr(1, "first")
 	local args, failure = run_review("1")
 	assert(not failure, failure)
-	assert(git(path, "rev-parse", "HEAD") == head, "worktree is not at the PR head")
-	assert(git(path, "status", "--porcelain", "--branch"):match("^## HEAD %(no branch%)"), "worktree is not detached")
-	assert(args == "--repo " .. path .. " origin/main...", "unexpected :CodeDiff arguments: " .. tostring(args))
-	assert(last_gh_call():match("^pr view 1 %-%-repo github%.com/test/repo "), last_gh_call())
-	assert(git(clone, "rev-parse", "origin/main") == main_head, "base branch was not fetched")
-	assert(git(clone, "symbolic-ref", "--short", "HEAD") == "main", "main worktree left its branch")
-	pass("creates a detached PR worktree, fetches the base and opens the merge-base diff")
+	assert(args == "--repo " .. path, "unexpected :CodeDiff arguments: " .. tostring(args))
+	local invoked = gh_calls()
+	assert(vim.deep_equal(invoked, { "worktree cd 1", "worktree pr --cd 1" }), vim.inspect(invoked))
+	pass("creates the review worktree and opens :CodeDiff on it")
 
-	head = push_pr(1, "second")
 	args, failure = run_review("#1")
 	assert(not failure, failure)
-	assert(git(path, "rev-parse", "HEAD") == head, "worktree was not moved to the updated PR head")
-	pass("reuses the worktree and moves it to the updated PR head")
+	assert(args == "--repo " .. path, "sync output leaked into the path: " .. tostring(args))
+	invoked = gh_calls()
+	assert(
+		vim.deep_equal(invoked, { "worktree cd 1", "worktree pr --reuse --cd 1", "worktree sync 1" }),
+		vim.inspect(invoked)
+	)
+	pass("moves an existing worktree to the PR's latest head")
 
-	args, failure = run_review("1", path)
-	assert(not failure, failure)
-	assert(args == "--repo " .. path .. " origin/main...", "run from the PR worktree nested a worktree: " .. args)
-	pass("run from inside a PR worktree resolves the main worktree")
-
-	local reviewed = head
-	vim.fn.writefile({ "my notes" }, path .. "/file.txt")
-	push_pr(1, "third")
+	vim.env.REVIEW_TEST_SYNC_ERROR = "worktree has local changes; use --force to discard them"
 	args, failure = run_review("1")
-	assert(failure and failure:match("uncommitted changes"), "dirty worktree was not refused: " .. tostring(failure))
-	assert(git(path, "rev-parse", "HEAD") == reviewed, "dirty worktree was moved")
-	assert(vim.fn.readfile(path .. "/file.txt")[1] == "my notes", "local edit was lost")
-	git(path, "checkout", "--", "file.txt")
-	pass("refuses to touch a worktree with uncommitted changes")
-
-	vim.fn.mkdir(clone .. "/.worktree/pr/pr-2", "p")
-	push_pr(2, "two")
-	args, failure = run_review("2")
-	assert(failure and failure:match("is not a git worktree"), "plain directory was not refused: " .. tostring(failure))
-	assert(git(clone, "symbolic-ref", "--short", "HEAD") == "main", "main worktree was detached")
-	pass("refuses a plain directory instead of acting on the main worktree")
-
-	add_alias("git@github.com:up/repo.git")
-	git(clone, "remote", "add", "upstream", "git@github.com:up/repo.git")
-	args, failure = run_review("1")
-	assert(not failure, failure)
-	assert(args == "--repo " .. path .. " upstream/main...", "upstream was not preferred: " .. args)
-	assert(last_gh_call():match("%-%-repo github%.com/up/repo "), last_gh_call())
-	add_alias("ssh://git@github.example.com:2222/team/proj.git")
-	git(clone, "remote", "set-url", "upstream", "ssh://git@github.example.com:2222/team/proj.git")
-	args, failure = run_review("1")
-	assert(not failure, failure)
-	assert(last_gh_call():match("%-%-repo github%.example%.com/team/proj "), last_gh_call())
-	pass("prefers upstream and passes gh the repository of scp and ssh URLs")
+	vim.env.REVIEW_TEST_SYNC_ERROR = nil
+	gh_calls()
+	assert(not args, "opened a diff although the worktree was not updated")
+	assert(failure and failure:match("local changes"), "gh-worktree's error was not shown: " .. tostring(failure))
+	pass("shows gh-worktree's error and opens nothing when it refuses")
 
 	args, failure = run_review("abc")
 	assert(failure and failure:match("usage"), "invalid number was not refused")
+	assert(vim.tbl_isempty(gh_calls()), "gh was called for an invalid number")
 	pass("rejects arguments that are not PR numbers")
 
 	-- Diff tabs: stub codediff's session lookup (it is only consulted when loaded).
@@ -181,20 +118,20 @@ local ok, err = xpcall(function()
 		vim.api.nvim_exec_autocmds("User", { pattern = "CodeDiffOpen", data = { tabpage = tab, mode = "explorer" } })
 		return tab
 	end
-	vim.cmd.cd(vim.fn.fnameescape(clone))
+	vim.cmd.cd(vim.fn.fnameescape(repo))
 	local first = vim.api.nvim_get_current_tabpage()
 	local diff_tab = open_diff_tab(path)
 	assert(vim.fn.getcwd() == path and vim.fn.haslocaldir(-1, 0) == 1, "diff tab cwd: " .. vim.fn.getcwd())
-	assert(vim.fn.getcwd(-1, vim.api.nvim_tabpage_get_number(first)) == clone, "other tabs changed cwd")
+	assert(vim.fn.getcwd(-1, vim.api.nvim_tabpage_get_number(first)) == repo, "other tabs changed cwd")
 	vim.cmd.tabnew()
 	assert(vim.fn.getcwd() == path, "a tab opened from the diff tab did not inherit the worktree")
 	vim.cmd.tabclose()
 	pass("a diff tab of another repository gets that repository as tab-local cwd")
 
-	vim.fn.mkdir(clone .. "/sub", "p")
-	vim.cmd.cd(vim.fn.fnameescape(clone .. "/sub"))
-	open_diff_tab(clone)
-	assert(vim.fn.haslocaldir(-1, 0) == 0 and vim.fn.getcwd() == clone .. "/sub", "plain :CodeDiff changed cwd")
+	vim.fn.mkdir(repo .. "/sub", "p")
+	vim.cmd.cd(vim.fn.fnameescape(repo .. "/sub"))
+	open_diff_tab(repo)
+	assert(vim.fn.haslocaldir(-1, 0) == 0 and vim.fn.getcwd() == repo .. "/sub", "plain :CodeDiff changed cwd")
 	pass("a diff tab of the current repository keeps the cwd")
 
 	local calls = {}

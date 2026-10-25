@@ -1,81 +1,31 @@
 #!/usr/bin/env bash
-# Check out a GitHub pull request into <repo>/.worktree/pr/pr-<number>.
+# Print the review worktree of a GitHub pull request, made by gh-worktree in
+# review mode: the files are the PR's latest head and HEAD is the merge base
+# with its base branch, so the PR's changes show as local changes.
 #
-#   review-worktree <number>   prints the worktree path and the base ref to
-#                              diff against with a merge base, one per line
-#   review-worktree --repo     prints the host/owner/name gh is given
+#   review-worktree <number>
 #
-# The layout matches gh-worktree, so existing worktrees are reused and moved to
-# the PR's latest head. A worktree with uncommitted changes to tracked files is
-# never touched. Shared by the zsh `review` command and Neovim's :Review.
+# A missing worktree is created. An existing one is moved to the PR's latest
+# head, which gh-worktree refuses while it has local edits. Shared by the zsh
+# `review` command and Neovim's :Review.
 set -euo pipefail
 
-die() {
-    echo "review-worktree: $*" >&2
-    exit 1
-}
+number=${1-}
+number=${number#\#}
+if [[ $# -ne 1 || ! $number =~ ^[0-9]+$ ]]; then
+    echo "usage: review-worktree <pull request number>" >&2
+    exit 2
+fi
 
-# host/owner/name from an https, ssh or scp-like remote URL.
-repo_of() {
-    local url=$1 host path
-    local scheme='^[A-Za-z][A-Za-z0-9+.-]*://([^/]+)/(.+)$'
-    local scp='^([^/:]*@)?([^/:@]+):(.+)$'
-    if [[ $url =~ $scheme ]]; then
-        host=${BASH_REMATCH[1]##*@}
-        host=${host%:*}
-        path=${BASH_REMATCH[2]}
-    elif [[ $url =~ $scp ]]; then
-        host=${BASH_REMATCH[2]}
-        path=${BASH_REMATCH[3]}
-    else
-        return 1
-    fi
-    path=${path%/}
-    echo "$host/${path%.git}"
-}
+# Neovim shows stderr as the error, so report progress only to a terminal.
+[[ -t 2 ]] && echo "preparing #$number" >&2
 
-[[ $# -eq 1 ]] || die "usage: review-worktree <pull request number> | --repo"
-
-# The first entry is the main worktree, also when run from a PR worktree.
-main=$(git worktree list --porcelain | sed -n '1s/^worktree //p')
-# Fork checkouts track the PR's repository as upstream.
-remotes=$(git -C "$main" remote)
-if grep -qx upstream <<<"$remotes"; then
-    remote=upstream
-elif grep -qx origin <<<"$remotes"; then
-    remote=origin
+if gh worktree cd "$number" >/dev/null 2>&1; then
+    # --reuse turns review mode on if the worktree was made without it but
+    # leaves it at its commit; sync moves it to the latest head.
+    path=$(gh worktree pr --reuse --cd "$number")
+    gh worktree sync "$number" >&2
 else
-    die "no upstream or origin remote in $main"
+    path=$(gh worktree pr --cd "$number")
 fi
-url=$(git -C "$main" config --get "remote.$remote.url")
-repo=$(repo_of "$url") || die "cannot parse remote URL: $url"
-if [[ $1 == --repo ]]; then
-    echo "$repo"
-    exit
-fi
-
-number=${1#\#}
-[[ $number =~ ^[0-9]+$ ]] || die "not a pull request number: $1"
-
-# gh needs --repo: with several remotes and no default it fails non-interactively.
-info=$(gh pr view "$number" --repo "$repo" --json baseRefName,title --jq '.baseRefName + "\t" + .title')
-base=${info%%$'\t'*}
-if [[ -t 2 ]]; then
-    echo "fetching #$number ${info#*$'\t'}" >&2
-fi
-git -C "$main" fetch --quiet "$remote" "refs/pull/$number/head" "refs/heads/$base"
-head=$(git -C "$main" rev-parse FETCH_HEAD)
-
-path=$main/.worktree/pr/pr-$number
-if [[ -e $path ]]; then
-    # A plain directory here would make git act on the main worktree.
-    top=$(git -C "$path" rev-parse --show-toplevel)
-    [[ $top -ef $path ]] || die "$path exists but is not a git worktree"
-    if [[ -n $(git -C "$path" status --porcelain --untracked-files=no) ]]; then
-        die "$path has uncommitted changes; commit or discard them first"
-    fi
-    git -C "$path" checkout --quiet --detach "$head"
-else
-    git -C "$main" worktree add --quiet --detach "$path" "$head"
-fi
-printf '%s\n%s\n' "$path" "$remote/$base"
+printf '%s\n' "$path"
