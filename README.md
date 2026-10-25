@@ -11,7 +11,8 @@
 
 Editor, shell, and development CLI versions are pinned in
 [`mise/config.toml`](mise/config.toml). This includes Neovim, Tree-sitter,
-Lua Language Server, Node.js, fzf, ripgrep, fd, delta, peco, ghq, GitHub CLI,
+Lua Language Server, Node.js, fzf, ripgrep, fd, delta, peco, ghq, GitHub CLI
+and its [gh-worktree](https://github.com/utam0k/gh-worktree) extension,
 lazygit, jq, tmux, kubectl, Go, golangci-lint, Terraform, and uv.
 
 Install [mise](https://mise.jdx.dev/getting-started.html), then run from this
@@ -26,6 +27,12 @@ tools. An existing config is moved to `config.toml.backup.XXXXXX` in the same
 directory; running the command again keeps the existing link and backup.
 `XDG_CONFIG_HOME` and `MISE_CONFIG_DIR` are respected. Personal overrides belong
 in `~/.config/mise/config.local.toml`.
+
+gh only runs extensions from its own data directory, so the command also links
+`~/.local/share/gh/extensions/gh-worktree/gh-worktree` to the mise shim, which
+runs the pinned version as `gh worktree`. If gh-worktree is already installed
+there another way, the command stops without changing anything; remove it with
+`gh extension remove worktree` and run the command again.
 
 The global link makes the tools available outside this checkout, including
 when Neovim starts in another project. Project-specific mise configs can still

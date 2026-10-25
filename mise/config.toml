@@ -5,6 +5,9 @@ delta = "0.20.1"
 fd = "10.5.0"
 fzf = "0.74.5"
 gh = "2.103.0"
+# The gh extension behind `gh worktree`; install/mise.sh links it into gh.
+# Its release assets are named <os>-<arch>, so bin names the executable.
+"github:utam0k/gh-worktree" = { version = "0.1.0", bin = "gh-worktree" }
 ghq = "1.11.2"
 go = "1.27.3"
 golangci-lint = "2.15.0"

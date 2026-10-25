@@ -26,12 +26,16 @@ class MiseSetupTest(unittest.TestCase):
         fake.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$MISE_TEST_LOG"\n')
         fake.chmod(0o755)
         self.env = dict(os.environ)
-        self.env.pop("MISE_CONFIG_DIR", None)
+        for name in ("MISE_CONFIG_DIR", "MISE_DATA_DIR", "GH_DATA_DIR"):
+            self.env.pop(name, None)
         self.env.update(
             PATH=f"{bindir}:/usr/bin:/bin",
             XDG_CONFIG_HOME=str(self.root / "config"),
+            XDG_DATA_HOME=str(self.root / "data"),
             MISE_TEST_LOG=str(self.log),
         )
+        self.extension = self.root / "data/gh/extensions/gh-worktree/gh-worktree"
+        self.shim = self.root / "data/mise/shims/gh-worktree"
 
     def run_setup(self, check=True):
         return subprocess.run(
@@ -52,6 +56,7 @@ class MiseSetupTest(unittest.TestCase):
             self.log.read_text().splitlines(),
             [f"trust {SOURCE}", f"-C {REPO} install"] * 2,
         )
+        self.assertEqual(self.extension.readlink(), self.shim)
 
     def test_existing_config_is_preserved_once(self):
         original = '[tools]\ncustom = "1.2.3"\n'
@@ -86,6 +91,24 @@ class MiseSetupTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(sentinel.read_text(), "keep me")
         self.assertFalse(self.log.exists())
+
+    def test_gh_data_dirs_take_precedence(self):
+        self.env["GH_DATA_DIR"] = str(self.root / "gh data")
+        self.env["MISE_DATA_DIR"] = str(self.root / "mise data")
+        self.run_setup()
+        extension = self.root / "gh data/extensions/gh-worktree/gh-worktree"
+        self.assertEqual(extension.readlink(), self.root / "mise data/shims/gh-worktree")
+        self.assertFalse(self.extension.parent.exists())
+
+    def test_other_gh_worktree_extension_is_not_replaced(self):
+        self.extension.parent.mkdir(parents=True)
+        self.extension.write_text("installed by hand")
+        result = self.run_setup(check=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("gh extension remove worktree", result.stderr)
+        self.assertEqual(self.extension.read_text(), "installed by hand")
+        self.assertFalse(self.log.exists())
+        self.assertFalse(self.target.exists())
 
 
 if __name__ == "__main__":
