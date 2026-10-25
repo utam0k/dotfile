@@ -213,6 +213,22 @@ local ok, err = xpcall(function()
 	review.lsp("lsp_references")
 	assert(vim.tbl_isempty(calls[2].opts), "LSP jumps outside diff tabs changed: " .. vim.inspect(calls[2]))
 	pass("LSP jumps open a new tab only from diff tabs")
+
+	-- codediff recreates the explorer window whenever the file list is shown again.
+	local explorer = vim.api.nvim_create_buf(false, true)
+	vim.bo[explorer].filetype = "codediff-explorer"
+	vim.cmd.vsplit()
+	vim.api.nvim_win_set_buf(0, explorer)
+	assert(vim.wo.winbar:match("%]f") and vim.wo.winbar:match("g%?"), "no key hint: " .. vim.wo.winbar)
+	local width = vim.api.nvim_eval_statusline(vim.wo.winbar, { use_winbar = true, maxwidth = 200 }).width
+	assert(width <= 40, "hint is wider than codediff's 40-column explorer: " .. width)
+	vim.cmd.close()
+	vim.cmd.vsplit()
+	vim.api.nvim_win_set_buf(0, explorer)
+	assert(vim.wo.winbar:match("%]f"), "hint missing after the explorer was shown again")
+	vim.cmd.enew()
+	assert(vim.wo.winbar == "", "hint leaked to another buffer: " .. vim.wo.winbar)
+	pass("the file list shows the main keys, also after it is shown again")
 end, debug.traceback)
 if not ok then
 	error(err)

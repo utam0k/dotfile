@@ -7,7 +7,20 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	config = function()
+		local default_enable = require("dropbar.configs").opts.bar.enable
 		require("dropbar").setup({
+			bar = {
+				-- CodeDiff clears the diff panes' winbars so both sides stay aligned;
+				-- a bar on the file side alone shifts it down a line.
+				enable = function(buf, win, info)
+					if vim.api.nvim_win_is_valid(win) then
+						if require("config.review").is_diff_tab(vim.api.nvim_win_get_tabpage(win)) then
+							return false
+						end
+					end
+					return default_enable(buf, win, info)
+				end,
+			},
 			sources = {
 				path = {
 					-- Default resolver is vim.fn.getcwd, which produces long

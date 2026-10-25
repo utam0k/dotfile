@@ -5,10 +5,23 @@
 -- zsh `review` command) and opens :CodeDiff against the merge base of the
 -- PR's base branch, the same range as GitHub's "Files changed".
 --
--- Diff tabs get a tab-local cwd in the repository they show, and LSP jumps
--- from a diff tab open in a new tab so the diff layout stays intact.
+-- Diff tabs get a tab-local cwd in the repository they show, LSP jumps from a
+-- diff tab open in a new tab so the diff layout stays intact, and the file
+-- list shows the main keys above it.
 
 local M = {}
+
+-- Keys worth seeing while reading a diff; g? lists the rest. It goes in the
+-- explorer's winbar: codediff clears the diff panes' winbars to keep them
+-- aligned, and the explorer is 40 columns wide, which this fills.
+local hint = " "
+	.. table.concat({
+		"%#Special#]f%#Comment# file",
+		"%#Special#]c%#Comment# hunk",
+		"%#Special#\\b%#Comment# list",
+		"%#Special#\\z%#Comment# fold",
+		"%#Special#g?%#Comment# help",
+	}, " ")
 
 -- This file is lua/config/review.lua inside the nvim directory of the dotfiles.
 local script = vim.fn.fnamemodify(vim.uv.fs_realpath(debug.getinfo(1, "S").source:sub(2)), ":h:h:h:h")
@@ -56,15 +69,16 @@ function M.follow_repo(tabpage)
 	end)
 end
 
-local function in_diff_tab()
+-- True when the tab page (default: current) shows a CodeDiff session.
+function M.is_diff_tab(tabpage)
 	local lifecycle = package.loaded["codediff.ui.lifecycle"]
-	return lifecycle ~= nil and lifecycle.get_session(vim.api.nvim_get_current_tabpage()) ~= nil
+	return lifecycle ~= nil and lifecycle.get_session(tabpage or vim.api.nvim_get_current_tabpage()) ~= nil
 end
 
 -- Run a Telescope LSP picker; inside a diff tab the target opens in a new tab.
 function M.lsp(picker)
 	local opts = {}
-	if in_diff_tab() then
+	if M.is_diff_tab() then
 		opts.jump_type = "tab"
 		opts.attach_mappings = function()
 			local actions = require("telescope.actions")
@@ -80,13 +94,31 @@ function M.setup()
 		M.open(args.args)
 	end, { nargs = 1, desc = "Review a GitHub pull request in a worktree" })
 
+	local group = vim.api.nvim_create_augroup("ReviewDiffTab", { clear = true })
 	vim.api.nvim_create_autocmd("User", {
-		group = vim.api.nvim_create_augroup("ReviewDiffTab", { clear = true }),
+		group = group,
 		pattern = "CodeDiffOpen",
 		callback = function(args)
 			M.follow_repo(args.data.tabpage)
 		end,
 		desc = "Set the diff tab's cwd to the repository it shows",
+	})
+
+	-- The explorer gets a new window each time it is shown again.
+	vim.api.nvim_create_autocmd("BufWinEnter", {
+		group = group,
+		callback = function(args)
+			local explorer = vim.bo[args.buf].filetype == "codediff-explorer"
+			for _, win in ipairs(vim.fn.win_findbuf(args.buf)) do
+				if explorer then
+					vim.wo[win][0].winbar = hint
+				elseif vim.wo[win].winbar == hint then
+					-- Another buffer took over the explorer's window.
+					vim.wo[win][0].winbar = ""
+				end
+			end
+		end,
+		desc = "Show the main CodeDiff keys above the file list",
 	})
 end
 
